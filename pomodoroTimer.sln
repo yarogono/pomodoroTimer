@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31313.79
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pomodoroTimer", "pomodoroTimer\pomodoroTimer.csproj", "{7DAE7D83-CA90-4B18-984A-86EA61EC5E89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{05091F14-B12B-439E-BE6A-97C5CDF05F6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManager.Common", "DataManager.Common\DataManager.Common.csproj", "{733E9E86-BAF1-40BD-9E8A-1872A91DFDF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManager.Common.Lib", "DataManager.Common.Lib\DataManager.Common.Lib.csproj", "{0E55E667-3AC6-4D8F-8E17-74346155D77E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7DAE7D83-CA90-4B18-984A-86EA61EC5E89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DAE7D83-CA90-4B18-984A-86EA61EC5E89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DAE7D83-CA90-4B18-984A-86EA61EC5E89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DAE7D83-CA90-4B18-984A-86EA61EC5E89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{733E9E86-BAF1-40BD-9E8A-1872A91DFDF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{733E9E86-BAF1-40BD-9E8A-1872A91DFDF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{733E9E86-BAF1-40BD-9E8A-1872A91DFDF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{733E9E86-BAF1-40BD-9E8A-1872A91DFDF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E55E667-3AC6-4D8F-8E17-74346155D77E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E55E667-3AC6-4D8F-8E17-74346155D77E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E55E667-3AC6-4D8F-8E17-74346155D77E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E55E667-3AC6-4D8F-8E17-74346155D77E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{733E9E86-BAF1-40BD-9E8A-1872A91DFDF8} = {05091F14-B12B-439E-BE6A-97C5CDF05F6C}
+		{0E55E667-3AC6-4D8F-8E17-74346155D77E} = {05091F14-B12B-439E-BE6A-97C5CDF05F6C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC6C406D-0EEF-4DCA-BF85-36BC26115396}
+	EndGlobalSection
+EndGlobal
