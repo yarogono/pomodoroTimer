@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,7 +17,7 @@ namespace pomodoroTimer.ViewModel
         #region Field
 
         private DispatcherTimer _timer;
-        private TimeSpan _time;
+        private TimeSpan _time = TimeSpan.FromMinutes(25);
 
         private string _textBlock = "00:25:00";
 
@@ -102,7 +103,6 @@ namespace pomodoroTimer.ViewModel
 
         private void _initialize()
         {
-
         }
 
         #endregion
@@ -121,12 +121,15 @@ namespace pomodoroTimer.ViewModel
             {
                 _isActive = true;
                 StartButton = "⏸";
-                _time = TimeSpan.FromMinutes(25);
 
                 _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
                 {
                     TextBlock = _time.ToString("c");
-                    if (_time == TimeSpan.Zero) _timer.Stop();
+                    if (_time == TimeSpan.Zero)
+                    {
+                        _timer.Stop();
+                        SystemSounds.Beep.Play();
+                    }
                     _time = _time.Add(TimeSpan.FromSeconds(-1));
                 }, Application.Current.Dispatcher);
 
@@ -136,7 +139,6 @@ namespace pomodoroTimer.ViewModel
             {
                 _isActive = false;
                 _timer.Stop();
-                TextBlock = "00:25:00";
                 StartButton = "▶";
             }
         }
@@ -148,6 +150,7 @@ namespace pomodoroTimer.ViewModel
             _timer.Stop();
             StartButton = "▶";
             TextBlock = "00:25:00";
+            _time = TimeSpan.FromMinutes(25);
         }
 
         #endregion
