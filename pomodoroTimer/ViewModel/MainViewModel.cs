@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace pomodoroTimer.ViewModel
 {
@@ -14,56 +15,31 @@ namespace pomodoroTimer.ViewModel
 
         #region Field
 
-        private int _timeSec = 0;
-        private int _timeMin = 0;
-        private int _timeHour = 0;
-        private bool _isActive = true;
+        private DispatcherTimer _timer;
+        private TimeSpan _time;
+
+        private string _textBlock = "00:25:00";
+
+        private string _startButton = "▶";
+        private bool _isActive = false;
 
         #endregion
 
         #region Property
 
-        public int TimeSec
+        public string TextBlock
         {
-            get
-            {
-                return _timeSec; 
-            }
-
-            set
-            {
-                _timeSec = value;
-                OnPropertyChanged(nameof(TimeSec));
-            }
+            get { return _textBlock; }
+            set { _textBlock = value; OnPropertyChanged(nameof(TextBlock)); }
         }
 
-        public int TimeMin
-        {
-            get
-            {
-                return _timeMin;
-            }
 
-            set
-            {
-                _timeMin = value;
-                OnPropertyChanged(nameof(TimeMin));
-            }
+        public string StartButton
+        {
+            get { return _startButton; }
+            set { _startButton = value; OnPropertyChanged(nameof(StartButton)); }
         }
 
-        public int TimeHour
-        {
-            get
-            {
-                return _timeHour;
-            }
-
-            set
-            {
-                _timeHour = value;
-                OnPropertyChanged(nameof(TimeHour));
-            }
-        }
 
 
         #endregion
@@ -77,7 +53,7 @@ namespace pomodoroTimer.ViewModel
             {
                 return new DelegateCommand(() =>
                 {
-                    startTimer();
+                    StartTimer();
                 }, delegate () { return true; });
             }
         }
@@ -89,7 +65,7 @@ namespace pomodoroTimer.ViewModel
             {
                 return new DelegateCommand(() =>
                 {
-                    resetTimer();
+                    ResetTimer();
                 }, delegate () { return true; });
             }
         }
@@ -131,46 +107,47 @@ namespace pomodoroTimer.ViewModel
 
         #endregion
 
-        #region User Method
-        private void DrawTime(int sec, int min, int hour)
-        {
-            //_timeSec = string.Format("{0:00}", sec);
-            //_timeMin = string.Format("{0:00}", min);
-            //_timeHour = string.Format("{0:00}", hour);
-        }
+        #region User Met
+
+
 
         #endregion
 
         #region Command Method
                                                                                                                 
-        private void startTimer()
+        private void StartTimer()
         {
-
-            while(_isActive == true)
+            if (_isActive == false)
             {
-                _timeSec++;
+                _isActive = true;
+                StartButton = "🔲";
+                _time = TimeSpan.FromMinutes(25);
 
-                if (_timeSec >= 60)
-                { 
-                    _timeMin++;
-                    _timeSec = 0;
+                _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+                {
+                    TextBlock = _time.ToString("c");
+                    if (_time == TimeSpan.Zero) _timer.Stop();
+                    _time = _time.Add(TimeSpan.FromSeconds(-1));
+                }, Application.Current.Dispatcher);
 
-                    if (_timeMin >= 60)
-                    {
-                        _timeHour++;
-                        _timeMin = 0;
-                    }
-                }
+                _timer.Start();
+            }
+            else
+            {
+                _isActive = false;
+                _timer.Stop();
+                TextBlock = "00:25:00";
+                StartButton = "▶";
             }
         }
 
 
-        private void resetTimer()
+        private void ResetTimer()
         {
-            _isActive = false;
-            _timeSec = 0;
-            _timeMin = 0;
-            _timeHour = 0;
+            //_isActive = false;
+            //_timeSec = 0;
+            //_timeMin = 0;
+            //_timeHour = 0;
         }
 
         #endregion

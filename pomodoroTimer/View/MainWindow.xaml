@@ -33,14 +33,10 @@
                     <TextBlock Text="Session"  Foreground="white" HorizontalAlignment="center" FontSize="30" />
                 </DockPanel>
                 <DockPanel DockPanel.Dock="Top" HorizontalAlignment="center">
-                    <Label Content="{Binding Path=TimeHour}" FontSize="60" FontWeight="Bold" Foreground="white"  />
-                    <TextBlock Text=":" FontSize="60" FontWeight="Bold" Foreground="Black" />
-                    <Label Content="{Binding Path=TimeMin}" FontSize="60" FontWeight="Bold" Foreground="white"  />
-                    <TextBlock Text=":" FontSize="60" FontWeight="Bold" Foreground="Black" />
-                    <Label Content="{Binding Path=TimeSec}" FontSize="60" FontWeight="Bold" Foreground="white"  />
+                    <TextBlock Text="{Binding Path=TextBlock}" FontSize="60" FontWeight="Bold" Foreground="white" />
                 </DockPanel>
                 <DockPanel Width="230" Height="100">
-                    <Button Command="{Binding Path=StartTimerCommand}" Content="▶" FontSize="50" Foreground="white" Background="#fa8072" BorderBrush="#fa8072" Width="100" Height="80" Cursor="Hand" />
+                    <Button Command="{Binding Path=StartTimerCommand}" Content="{Binding Path=StartButton}" FontSize="50" Foreground="white" Background="#fa8072" Width="100" Height="80" Cursor="Hand" />
                     <Button Command="{Binding Path=ResetTimerCommand}" Content="🔄" FontSize="50" Foreground="white" Background="#fa8072" BorderBrush="#fa8072" Width="100" Height="80" Cursor="Hand" HorizontalAlignment="Right" />
                 </DockPanel>
             </DockPanel>
