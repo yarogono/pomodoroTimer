@@ -120,7 +120,7 @@ namespace pomodoroTimer.ViewModel
             if (_isActive == false)
             {
                 _isActive = true;
-                StartButton = "🔲";
+                StartButton = "⏸";
                 _time = TimeSpan.FromMinutes(25);
 
                 _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
@@ -144,10 +144,10 @@ namespace pomodoroTimer.ViewModel
 
         private void ResetTimer()
         {
-            //_isActive = false;
-            //_timeSec = 0;
-            //_timeMin = 0;
-            //_timeHour = 0;
+            _isActive = false;
+            _timer.Stop();
+            StartButton = "▶";
+            TextBlock = "00:25:00";
         }
 
         #endregion
