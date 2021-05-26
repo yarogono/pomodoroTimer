@@ -109,5 +109,10 @@
       <Name>DataManager.Common.Lib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="RingSound\magicRing.wav" />
+    <Content Include="RingSound\ringSound.wav" />
+    <Content Include="RingSound\toyTelephone.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

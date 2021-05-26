@@ -1,11 +1,13 @@
 ﻿using DataManager.Common.Lib;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -21,9 +23,11 @@ namespace pomodoroTimer.ViewModel
 
         private string _textBlock = "00:25:00";
 
-        private string _startButton = "▶";
+        private string _timerStartButton = "▶";
         private bool _isActive = false;
 
+        private string _selectedSound = "magicRing";
+        private ObservableCollection<string> _collectionSound;
         #endregion
 
         #region Property
@@ -35,11 +39,27 @@ namespace pomodoroTimer.ViewModel
         }
 
 
-        public string StartButton
+        public string TimerStartButton
         {
-            get { return _startButton; }
-            set { _startButton = value; OnPropertyChanged(nameof(StartButton)); }
+            get { return _timerStartButton; }
+            set { _timerStartButton = value; OnPropertyChanged(nameof(TimerStartButton)); }
         }
+
+
+        public ObservableCollection<string> CollectionSound
+        {
+            get { return _collectionSound; }
+            set { _collectionSound = value; OnPropertyChanged(nameof(CollectionSound)); }
+        }
+
+
+
+        public string SelectedSound
+        {
+            get { return _selectedSound; }
+            set { _selectedSound = value; OnPropertyChanged(nameof(SelectedSound)); }
+        }
+
 
 
 
@@ -103,11 +123,16 @@ namespace pomodoroTimer.ViewModel
 
         private void _initialize()
         {
+            CollectionSound = new ObservableCollection<string>();
+            CollectionSound.Add("magicRing");
+            CollectionSound.Add("ringSound");
+            CollectionSound.Add("toyTelephone");
+
         }
 
         #endregion
 
-        #region User Met
+        #region User Metod
 
 
 
@@ -120,15 +145,42 @@ namespace pomodoroTimer.ViewModel
             if (_isActive == false)
             {
                 _isActive = true;
-                StartButton = "⏸";
+                TimerStartButton = "⏸";
 
-                _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+                _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), 
+                    DispatcherPriority.Normal, delegate
                 {
                     TextBlock = _time.ToString("c");
                     if (_time == TimeSpan.Zero)
                     {
                         _timer.Stop();
-                        SystemSounds.Beep.Play();
+
+                        string magicRing 
+                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\magicRing.wav";
+
+                        string ringSound 
+                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\ringSound.wav";
+
+                        string toyTelephone
+                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\toyTelephone.wav";
+
+
+                        string plyerFilePath = "";
+                        switch (SelectedSound)
+                        {
+                            case "magicRing":
+                                plyerFilePath = magicRing;
+                                break;
+                            case "ringSound":
+                                plyerFilePath = ringSound;
+                                break;
+                            case "toyTelephone":
+                                plyerFilePath = toyTelephone;
+                                break;
+                        }
+                        var mediaPlayer = new System.Windows.Media.MediaPlayer();
+                        mediaPlayer.Open(new System.Uri(plyerFilePath));
+                        mediaPlayer.Play();
                     }
                     _time = _time.Add(TimeSpan.FromSeconds(-1));
                 }, Application.Current.Dispatcher);
@@ -139,7 +191,7 @@ namespace pomodoroTimer.ViewModel
             {
                 _isActive = false;
                 _timer.Stop();
-                StartButton = "▶";
+                TimerStartButton = "▶";
             }
         }
 
@@ -148,7 +200,7 @@ namespace pomodoroTimer.ViewModel
         {
             _isActive = false;
             _timer.Stop();
-            StartButton = "▶";
+            TimerStartButton = "▶";
             TextBlock = "00:25:00";
             _time = TimeSpan.FromMinutes(25);
         }
