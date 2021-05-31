@@ -3,7 +3,7 @@
 
     <!--#region Button Style -->
     
-    <Style  TargetType="{x:Type Button}">
+    <Style x:Key="ButtonHoverStyle" TargetType="Button">
         <Setter Property="Foreground">
             <Setter.Value>
                 <SolidColorBrush Opacity="1" Color="White"/>

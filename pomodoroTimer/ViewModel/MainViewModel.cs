@@ -19,12 +19,15 @@ namespace pomodoroTimer.ViewModel
         #region Field
 
         private DispatcherTimer _timer;
-        private TimeSpan _time = TimeSpan.FromMinutes(25);
+        private int _sessionTime = 25;
+        private TimeSpan _time;
 
-        private string _textBlock = "00:25:00";
+        private string _timeTextBlock = TimeSpan.FromMinutes(25).ToString("c");
 
         private string _timerStartButton = "▶";
         private bool _isActive = false;
+
+        private int _breakTime = 05;
 
         private string _selectedSound = "magicRing";
         private ObservableCollection<string> _collectionSound;
@@ -32,10 +35,10 @@ namespace pomodoroTimer.ViewModel
 
         #region Property
 
-        public string TextBlock
+        public string TimeTextBlock
         {
-            get { return _textBlock; }
-            set { _textBlock = value; OnPropertyChanged(nameof(TextBlock)); }
+            get { return _timeTextBlock; }
+            set { _timeTextBlock = value; OnPropertyChanged(nameof(TimeTextBlock)); }
         }
 
 
@@ -44,6 +47,23 @@ namespace pomodoroTimer.ViewModel
             get { return _timerStartButton; }
             set { _timerStartButton = value; OnPropertyChanged(nameof(TimerStartButton)); }
         }
+
+
+        public int BreakTime
+        {
+            get { return _breakTime; }
+            set { _breakTime = value; OnPropertyChanged(nameof(BreakTime)); }
+        }
+
+
+
+        public int SessionTime
+        {
+            get { return _sessionTime; }
+            set { _sessionTime = value; OnPropertyChanged(nameof(SessionTime)); }
+        }
+
+
 
 
         public ObservableCollection<string> CollectionSound
@@ -59,7 +79,6 @@ namespace pomodoroTimer.ViewModel
             get { return _selectedSound; }
             set { _selectedSound = value; OnPropertyChanged(nameof(SelectedSound)); }
         }
-
 
 
 
@@ -91,6 +110,54 @@ namespace pomodoroTimer.ViewModel
             }
         }
 
+
+
+        public ICommand BreakTimeMinusCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    BreakTiimeMinus();
+                }, delegate () { return true; });
+            }
+        }
+
+
+        public ICommand BreakTimePlusCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    BreakTimePlus();
+                }, delegate () { return true; });
+            }
+        }
+
+
+
+        public ICommand SessionTimeMinusCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    SessionTimeMinus();
+                }, delegate () { return true; });
+            }
+        }
+
+        public ICommand SessionTimePlusCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    SessionTimePlus();
+                }, delegate () { return true; });
+            }
+        }
 
 
 
@@ -146,11 +213,12 @@ namespace pomodoroTimer.ViewModel
             {
                 _isActive = true;
                 TimerStartButton = "⏸";
+                _time = TimeSpan.FromMinutes(SessionTime);
 
                 _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), 
                     DispatcherPriority.Normal, delegate
                 {
-                    TextBlock = _time.ToString("c");
+                    TimeTextBlock = _time.ToString("c");
                     if (_time == TimeSpan.Zero)
                     {
                         _timer.Stop();
@@ -198,11 +266,56 @@ namespace pomodoroTimer.ViewModel
 
         private void ResetTimer()
         {
-            _isActive = false;
-            _timer.Stop();
-            TimerStartButton = "▶";
-            TextBlock = "00:25:00";
-            _time = TimeSpan.FromMinutes(25);
+            if (_isActive == true)
+            {
+                _isActive = false;
+                _timer.Stop();
+                TimerStartButton = "▶";
+                _time = TimeSpan.FromMinutes(25);
+                TimeTextBlock = _time.ToString("c");
+            }
+            else
+            {
+                TimerStartButton = "▶";
+                _time = TimeSpan.FromMinutes(25);
+                TimeTextBlock = _time.ToString("c");
+            }
+        }
+        private void BreakTiimeMinus()
+        {
+            if (BreakTime > 0)
+            {
+                 BreakTime--;
+            }
+        }
+        private void BreakTimePlus()
+        {
+            if (BreakTime < 10)
+            {
+                BreakTime++;
+            }
+        }
+
+        private void SessionTimeMinus()
+        {
+            if (SessionTime > 1 && _isActive == false)
+            {
+                SessionTime--;
+
+                _time = TimeSpan.FromMinutes(SessionTime);
+                TimeTextBlock = _time.ToString("c");
+            }
+        }
+
+        private void SessionTimePlus()
+        {
+            if (_isActive == false)
+            {
+                SessionTime++;
+
+                _time = TimeSpan.FromMinutes(SessionTime);
+                TimeTextBlock = _time.ToString("c");
+            }
         }
 
         #endregion
