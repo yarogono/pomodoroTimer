@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace pomodoroTimer.ViewModel
@@ -21,24 +22,36 @@ namespace pomodoroTimer.ViewModel
         private DispatcherTimer _timer;
         private int _sessionTime = 25;
         private TimeSpan _time;
+        private string _currentStatus = "Session";
 
         private string _timeTextBlock = TimeSpan.FromMinutes(25).ToString("c");
 
         private string _timerStartButton = "▶";
-        private bool _isActive = false;
+        private bool _sessionActive = false;
+        private bool _breaktimeActive = false;
 
-        private int _breakTime = 05;
+        private int _breakTime = 5;
 
         private string _selectedSound = "magicRing";
         private ObservableCollection<string> _collectionSound;
+
         #endregion
 
         #region Property
 
-        public string TimeTextBlock
+
+        public string CurrentStatus
+        {
+            get { return _currentStatus; }
+            set { _currentStatus = value; OnPropertyChanged(nameof(CurrentStatus)); }
+        }
+
+
+
+        public string CurrentTimeTextBlock
         {
             get { return _timeTextBlock; }
-            set { _timeTextBlock = value; OnPropertyChanged(nameof(TimeTextBlock)); }
+            set { _timeTextBlock = value; OnPropertyChanged(nameof(CurrentTimeTextBlock)); }
         }
 
 
@@ -93,7 +106,7 @@ namespace pomodoroTimer.ViewModel
             {
                 return new DelegateCommand(() =>
                 {
-                    StartTimer();
+                    TimerStartTimer();
                 }, delegate () { return true; });
             }
         }
@@ -207,48 +220,58 @@ namespace pomodoroTimer.ViewModel
 
         #region Command Method
                                                                                                                 
-        private void StartTimer()
+        private void TimerStartTimer()
         {
-            if (_isActive == false)
+            if (_sessionActive == false && _breaktimeActive == false )
             {
-                _isActive = true;
+                _sessionActive = true;
                 TimerStartButton = "⏸";
                 _time = TimeSpan.FromMinutes(SessionTime);
 
+
                 _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), 
-                    DispatcherPriority.Normal, delegate
+                DispatcherPriority.Normal, delegate
                 {
-                    TimeTextBlock = _time.ToString("c");
+                    CurrentTimeTextBlock = _time.ToString("c");
                     if (_time == TimeSpan.Zero)
                     {
+                        RingTheBell();
+
                         _timer.Stop();
-
-                        string magicRing 
-                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\magicRing.wav";
-
-                        string ringSound 
-                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\ringSound.wav";
-
-                        string toyTelephone
-                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\toyTelephone.wav";
+                        CurrentStatus = "Break";
 
 
-                        string plyerFilePath = "";
-                        switch (SelectedSound)
-                        {
-                            case "magicRing":
-                                plyerFilePath = magicRing;
-                                break;
-                            case "ringSound":
-                                plyerFilePath = ringSound;
-                                break;
-                            case "toyTelephone":
-                                plyerFilePath = toyTelephone;
-                                break;
-                        }
-                        var mediaPlayer = new System.Windows.Media.MediaPlayer();
-                        mediaPlayer.Open(new System.Uri(plyerFilePath));
-                        mediaPlayer.Play();
+                        TimerStartButton = "▶";
+                        _time = TimeSpan.FromMinutes(BreakTime);
+                        CurrentTimeTextBlock = _time.ToString("c");
+                        _breaktimeActive = true;
+                    }
+                    _time = _time.Add(TimeSpan.FromSeconds(-1));
+                }, Application.Current.Dispatcher);
+
+                _timer.Start();
+            }
+            else if (_breaktimeActive == true)
+            {
+                TimerStartButton = "⏸";
+
+                _timer = new DispatcherTimer(new TimeSpan(0, 0, 1),
+                DispatcherPriority.Normal, delegate
+                {
+                    CurrentTimeTextBlock = _time.ToString("c");
+                    if (_time == TimeSpan.Zero)
+                    {
+                        RingTheBell();
+
+                        _timer.Stop();
+                        CurrentStatus = "Session";
+
+
+                        TimerStartButton = "▶";
+                        _time = TimeSpan.FromMinutes(SessionTime);
+                        CurrentTimeTextBlock = _time.ToString("c");
+                        _breaktimeActive = false;
+                        _sessionActive = false;
                     }
                     _time = _time.Add(TimeSpan.FromSeconds(-1));
                 }, Application.Current.Dispatcher);
@@ -257,35 +280,73 @@ namespace pomodoroTimer.ViewModel
             }
             else
             {
-                _isActive = false;
+                _sessionActive = false;
+                _breaktimeActive = false;
                 _timer.Stop();
                 TimerStartButton = "▶";
             }
         }
 
 
+        private void RingTheBell()
+        {
+            string magicRing
+                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\magicRing.wav";
+
+            string ringSound
+                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\ringSound.wav";
+
+            string toyTelephone
+                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\toyTelephone.wav";
+
+
+            string plyerFilePath = "";
+            switch (SelectedSound)
+            {
+                case "magicRing":
+                    plyerFilePath = magicRing;
+                    break;
+                case "ringSound":
+                    plyerFilePath = ringSound;
+                    break;
+                case "toyTelephone":
+                    plyerFilePath = toyTelephone;
+                    break;
+            }
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            mediaPlayer.Open(new System.Uri(plyerFilePath));
+            mediaPlayer.Position = TimeSpan.Zero;
+            mediaPlayer.Play();
+        }
+
+
         private void ResetTimer()
         {
-            if (_isActive == true)
+            if (_sessionActive == true && _breaktimeActive == false)
             {
-                _isActive = false;
+                _sessionActive = false;
                 _timer.Stop();
+                CurrentStatus = "Session";
                 TimerStartButton = "▶";
-                _time = TimeSpan.FromMinutes(25);
-                TimeTextBlock = _time.ToString("c");
+                SessionTime = 25;
+                _time = TimeSpan.FromMinutes(SessionTime);
+                CurrentTimeTextBlock = _time.ToString("c");
             }
             else
             {
                 TimerStartButton = "▶";
-                _time = TimeSpan.FromMinutes(25);
-                TimeTextBlock = _time.ToString("c");
+                SessionTime = 25;
+                _timer.Stop();
+                CurrentStatus = "Session";
+                _time = TimeSpan.FromMinutes(SessionTime);
+                CurrentTimeTextBlock = _time.ToString("c");
             }
         }
         private void BreakTiimeMinus()
         {
             if (BreakTime > 0)
             {
-                 BreakTime--;
+                BreakTime--;
             }
         }
         private void BreakTimePlus()
@@ -298,23 +359,23 @@ namespace pomodoroTimer.ViewModel
 
         private void SessionTimeMinus()
         {
-            if (SessionTime > 1 && _isActive == false)
+            if (SessionTime > 1 && _breaktimeActive == false && _sessionActive == false)
             {
                 SessionTime--;
 
                 _time = TimeSpan.FromMinutes(SessionTime);
-                TimeTextBlock = _time.ToString("c");
+                CurrentTimeTextBlock = _time.ToString("c");
             }
         }
 
         private void SessionTimePlus()
         {
-            if (_isActive == false)
+            if (_breaktimeActive == false && _sessionActive == false)
             {
                 SessionTime++;
 
                 _time = TimeSpan.FromMinutes(SessionTime);
-                TimeTextBlock = _time.ToString("c");
+                CurrentTimeTextBlock = _time.ToString("c");
             }
         }
 
