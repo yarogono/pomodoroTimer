@@ -25,24 +25,41 @@
     </Window.Resources>
 
     <StackPanel>
-        <DockPanel>
-            <Menu Width="Auto" Height="25" Background="#fa8072" Foreground="white" DockPanel.Dock="Top">
-                <MenuItem Header="_File" FontSize="18" >
-                    <MenuItem Header="_Open Image File" Command="{Binding Path=OpenImageCommand}" />
-                    <MenuItem Header="_Save" />
-                    <Separator />
-                    <MenuItem Header="_Exit" />
+        <DockPanel Height="25" Background="#fa8072">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                    
+                <Menu Width="Auto" Grid.Column="0" Height="25" Background="#fa8072" Foreground="white" DockPanel.Dock="Top">
+                    <MenuItem Header="_File" FontSize="18" >
+                        <MenuItem Header="_Open Image File" Command="{Binding Path=OpenImageCommand}" />
+                        <MenuItem Header="_Save" />
+                        <Separator />
+                        <MenuItem Header="_Exit" />
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="Click">
+                                <Behaviors:CallMethodAction MethodName="Close"
+                               TargetObject="{Binding RelativeSource={RelativeSource
+                                                      Mode=FindAncestor,
+                                                      AncestorType=Window}}" />
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </MenuItem>
+                </Menu>
+                <Button Grid.Column="3" Content="X" FontSize="15" Width="23" Foreground="White" HorizontalAlignment="Right" BorderBrush="#fa8072" Background="#fa8072" FontWeight="Bold"  Margin="0 0 20 0">
                     <Behaviors:Interaction.Triggers>
                         <Behaviors:EventTrigger EventName="Click">
                             <Behaviors:CallMethodAction MethodName="Close"
-                           TargetObject="{Binding RelativeSource={RelativeSource
-                                                  Mode=FindAncestor,
-                                                  AncestorType=Window}}" />
+                               TargetObject="{Binding RelativeSource={RelativeSource
+                                                      Mode=FindAncestor,
+                                                      AncestorType=Window}}" />
                         </Behaviors:EventTrigger>
                     </Behaviors:Interaction.Triggers>
-
-                </MenuItem>
-            </Menu>
+                </Button>
+            </Grid>
         </DockPanel>
       
         <Grid>
