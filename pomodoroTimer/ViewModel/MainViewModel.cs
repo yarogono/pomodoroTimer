@@ -19,6 +19,8 @@ namespace pomodoroTimer.ViewModel
 
         #region Field
 
+        private WindowState _currentWindowState;
+
         private DispatcherTimer _timer;
         private int _sessionTime = 25;
         private TimeSpan _time;
@@ -38,6 +40,12 @@ namespace pomodoroTimer.ViewModel
         #endregion
 
         #region Property
+
+        public WindowState CurrentWindowState
+        {
+            get { return _currentWindowState; }
+            set { _currentWindowState = value; OnPropertyChanged(nameof(CurrentWindowState)); }
+        }
 
 
         public string CurrentStatus
@@ -98,6 +106,29 @@ namespace pomodoroTimer.ViewModel
         #endregion
 
         #region Command
+
+        public ICommand WindowMinimizeCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    WindowMinimize();
+                }, delegate () { return true; });
+            }
+        }
+
+
+        public ICommand WindowMaxmizeCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    WindowMaximize();
+                }, delegate () { return true; });
+            }
+        }
 
 
         public ICommand StartTimerCommand
@@ -219,7 +250,26 @@ namespace pomodoroTimer.ViewModel
         #endregion
 
         #region Command Method
-                                                                                                                
+
+        private void WindowMinimize()
+        {
+            CurrentWindowState = WindowState.Minimized;
+        }
+
+        private void WindowMaximize()
+        {
+
+            if (CurrentWindowState == WindowState.Maximized)
+            {
+                CurrentWindowState = WindowState.Normal;
+            }
+            else
+            {
+                CurrentWindowState = WindowState.Maximized;
+            }
+        }
+
+
         private void TimerStartTimer()
         {
             if (_sessionActive == false && _breaktimeActive == false )

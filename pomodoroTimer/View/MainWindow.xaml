@@ -10,7 +10,8 @@
         ResizeMode="CanResizeWithGrip"
         WindowStyle="None"
         ShowInTaskbar="True"
-        Title="MainWindow" MinHeight="750" MinWidth="460" Height="800" Width="550" Background="#ed2939">
+        Title="MainWindow" MinHeight="750" MinWidth="460" Height="800" 
+        Width="550" Background="#ed2939" WindowState="{Binding Path=CurrentWindowState}">
 
     <Window.DataContext>
         <viewModel:MainViewModel />
@@ -49,16 +50,57 @@
                         </Behaviors:Interaction.Triggers>
                     </MenuItem>
                 </Menu>
-                <Button Grid.Column="3" Content="X" FontSize="15" Width="23" Foreground="White" HorizontalAlignment="Right" BorderBrush="#fa8072" Background="#fa8072" FontWeight="Bold"  Margin="0 0 20 0">
-                    <Behaviors:Interaction.Triggers>
-                        <Behaviors:EventTrigger EventName="Click">
-                            <Behaviors:CallMethodAction MethodName="Close"
-                               TargetObject="{Binding RelativeSource={RelativeSource
-                                                      Mode=FindAncestor,
-                                                      AncestorType=Window}}" />
-                        </Behaviors:EventTrigger>
-                    </Behaviors:Interaction.Triggers>
-                </Button>
+                <DockPanel Grid.Column="3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button Command="{Binding Path=WindowMinimizeCommand}" Grid.Column="0" Background="#fa8072" BorderBrush="#fa8072">
+                            <Rectangle Width="11"
+                            Stroke="White"
+                            StrokeThickness="2.5"/>
+                        </Button>
+
+                        <Button Grid.Column="1" Background="#fa8072" BorderBrush="#fa8072" Command="{Binding Path=WindowMaxmizeCommand}">
+                            <Grid>
+                                <Rectangle Name="rectMax" Width="11" Height="11"
+                                         Stroke="White"
+                                         StrokeThickness="2.5"/>
+                                <Canvas Name="rectMin"  Visibility="Hidden">
+                                    <Polyline Points="2.375,2 2.375,0.375 10.625,0.375 10.625,8.625 9,8.625"
+                                                      StrokeThickness="2.5" Stroke="White"/>
+                                    <Rectangle Width="9" Height="9"
+                                                       Stroke="White"
+                                                       StrokeThickness="2.5" Margin="0,2,2,0"/>
+                                </Canvas>
+                            </Grid>
+                        </Button>
+
+                        <Button Grid.Column="2" Background="#fa8072" BorderBrush="#fa8072">
+                            <Behaviors:Interaction.Triggers>
+                                <Behaviors:EventTrigger EventName="Click">
+                                    <Behaviors:CallMethodAction MethodName="Close"
+                                   TargetObject="{Binding RelativeSource={RelativeSource
+                                                          Mode=FindAncestor,
+                                                          AncestorType=Window}}" />
+                                </Behaviors:EventTrigger>
+                            </Behaviors:Interaction.Triggers>
+                            <Canvas Height="25" Width="35" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Line    
+                                    X1="12" Y1="8" 
+                                    X2="22" Y2="18"    
+                                    Stroke="White" StrokeThickness="2.5"/>
+                                <Line    
+                                    X1="12" Y1="18"    
+                                    X2="22" Y2="8"  
+                                    Stroke="White" StrokeThickness="2.5"/>
+                            </Canvas>
+                        </Button>
+                    </Grid>
+                </DockPanel>
             </Grid>
         </DockPanel>
       
