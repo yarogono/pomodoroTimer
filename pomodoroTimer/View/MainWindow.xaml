@@ -7,7 +7,8 @@
         xmlns:viewModel="clr-namespace:pomodoroTimer.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="750" MinWidth="460" Height="800" 
-        Width="550" Background="#ed2939" WindowState="{Binding Path=CurrentWindowState}">
+        Width="550" Background="#ed2939" WindowState="{Binding Path=CurrentWindowState}"
+        Style="{StaticResource CustomWindowStyle}">
 
     <Window.DataContext>
         <viewModel:MainViewModel />
@@ -21,11 +22,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
-    <!--Add the WindowChrome object-->
-    <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="50"/>
-    </WindowChrome.WindowChrome>
 
     <StackPanel>
         <DockPanel Height="25" Background="#fa8072">

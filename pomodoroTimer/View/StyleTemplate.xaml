@@ -209,6 +209,26 @@
         </Style.Triggers>
     </Style>
     
-    <!--#endregion-->
+    <!--#endregion -->
+
+
+    <!-- #region Window Toolbar Style -->
+    <Style TargetType="{x:Type Window}" x:Key="CustomWindowStyle">
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome CaptionHeight="30"
+                          CornerRadius="30"
+                          GlassFrameThickness="0"
+                          ResizeBorderThickness="3"
+                          NonClientFrameEdges="None"/>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter Property="BorderThickness" Value="{Binding Source={x:Static SystemParameters.WindowResizeBorderThickness}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- #endregion -->
 
 </ResourceDictionary>
