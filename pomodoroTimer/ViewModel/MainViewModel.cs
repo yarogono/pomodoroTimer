@@ -1,4 +1,5 @@
 ﻿using DataManager.Common.Lib;
+using Microsoft.Xaml.Behaviors;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +8,7 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -238,7 +240,6 @@ namespace pomodoroTimer.ViewModel
             CollectionSound.Add("magicRing");
             CollectionSound.Add("ringSound");
             CollectionSound.Add("toyTelephone");
-
         }
 
         #endregion
@@ -432,6 +433,7 @@ namespace pomodoroTimer.ViewModel
         #endregion
 
         #region Event Method
+
 
         #endregion
     }
