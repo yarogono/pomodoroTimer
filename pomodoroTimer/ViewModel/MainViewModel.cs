@@ -26,13 +26,11 @@ namespace pomodoroTimer.ViewModel
         private DispatcherTimer _timer;
         private int _sessionTime = 25;
         private TimeSpan _time;
-        private string _currentStatus = "Session";
+        private string _currentStatus = "Focus Stop";
 
-        private string _timeTextBlock = TimeSpan.FromMinutes(25).ToString("c");
+        private string _remainTimeTextBlock = TimeSpan.FromMinutes(25).ToString("c");
 
         private string _timerStartButton = "▶";
-        private bool _sessionActive = false;
-        private bool _breaktimeActive = false;
 
         private int _breakTime = 5;
 
@@ -58,10 +56,10 @@ namespace pomodoroTimer.ViewModel
 
 
 
-        public string CurrentTimeTextBlock
+        public string RemainTimeTextBlock
         {
-            get { return _timeTextBlock; }
-            set { _timeTextBlock = value; OnPropertyChanged(nameof(CurrentTimeTextBlock)); }
+            get { return _remainTimeTextBlock; }
+            set { _remainTimeTextBlock = value; OnPropertyChanged(nameof(RemainTimeTextBlock)); }
         }
 
 
@@ -273,68 +271,86 @@ namespace pomodoroTimer.ViewModel
 
         private void TimerStartTimer()
         {
-            if (_sessionActive == false && _breaktimeActive == false )
+
+            switch (CurrentStatus)
             {
-                _sessionActive = true;
-                TimerStartButton = "⏸";
-                _time = TimeSpan.FromMinutes(SessionTime);
+                case "Focus Stop":
+                    CurrentStatus = "Focus Running";
+                    TimerStartButton = "⏸";
+                    _time = TimeSpan.FromMinutes(SessionTime);
 
 
-                _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), 
-                DispatcherPriority.Normal, delegate
-                {
-                    CurrentTimeTextBlock = _time.ToString("c");
-                    if (_time == TimeSpan.Zero)
+                    _timer = new DispatcherTimer(new TimeSpan(0, 0, 1),
+                    DispatcherPriority.Normal, delegate
                     {
-                        RingTheBell();
+                        RemainTimeTextBlock = _time.ToString("c");
+                        if (_time == TimeSpan.Zero)
+                        {
+                            RingTheBell();
 
-                        _timer.Stop();
-                        CurrentStatus = "Break";
+                            _timer.Stop();
+                            CurrentStatus = "Breaktime Stop";
 
 
-                        TimerStartButton = "▶";
-                        _time = TimeSpan.FromMinutes(BreakTime);
-                        CurrentTimeTextBlock = _time.ToString("c");
-                        _breaktimeActive = true;
-                    }
-                    _time = _time.Add(TimeSpan.FromSeconds(-1));
-                }, Application.Current.Dispatcher);
+                            TimerStartButton = "▶";
+                            _time = TimeSpan.FromMinutes(BreakTime);
+                            RemainTimeTextBlock = _time.ToString("c");
+                        }
+                        _time = _time.Add(TimeSpan.FromSeconds(-1));
+                    }, Application.Current.Dispatcher);
 
-                _timer.Start();
-            }
-            else if (_breaktimeActive == true)
-            {
-                TimerStartButton = "⏸";
+                    _timer.Start();
+                    break;
 
-                _timer = new DispatcherTimer(new TimeSpan(0, 0, 1),
-                DispatcherPriority.Normal, delegate
-                {
-                    CurrentTimeTextBlock = _time.ToString("c");
-                    if (_time == TimeSpan.Zero)
+                case "Focus Running":
+                    CurrentStatus = "Focus Pause";
+                    TimerStartButton = "▶";
+                    _timer.Stop();
+                    break;
+
+                case "Focus Pause":
+                    CurrentStatus = "Focus Running";
+                    TimerStartButton = "⏸";
+                    _timer.Start();
+                    break;
+
+                case "Breaktime Stop":
+                    CurrentStatus = "Breaktime Running";
+                    TimerStartButton = "⏸";
+
+                    _timer = new DispatcherTimer(new TimeSpan(0, 0, 1),
+                    DispatcherPriority.Normal, delegate
                     {
-                        RingTheBell();
+                        RemainTimeTextBlock = _time.ToString("c");
+                        if (_time == TimeSpan.Zero)
+                        {
+                            RingTheBell();
 
-                        _timer.Stop();
-                        CurrentStatus = "Session";
+                            _timer.Stop();
+                            CurrentStatus = "Focus Stop";
 
 
-                        TimerStartButton = "▶";
-                        _time = TimeSpan.FromMinutes(SessionTime);
-                        CurrentTimeTextBlock = _time.ToString("c");
-                        _breaktimeActive = false;
-                        _sessionActive = false;
-                    }
-                    _time = _time.Add(TimeSpan.FromSeconds(-1));
-                }, Application.Current.Dispatcher);
+                            TimerStartButton = "▶";
+                            _time = TimeSpan.FromMinutes(SessionTime);
+                            RemainTimeTextBlock = _time.ToString("c");
+                        }
+                        _time = _time.Add(TimeSpan.FromSeconds(-1));
+                    }, Application.Current.Dispatcher);
 
-                _timer.Start();
-            }
-            else
-            {
-                _sessionActive = false;
-                _breaktimeActive = false;
-                _timer.Stop();
-                TimerStartButton = "▶";
+                    _timer.Start();
+                    break;
+
+                case "Breaktime Running":
+                    CurrentStatus = "Breaktime Pause";
+                    TimerStartButton = "▶";
+                    _timer.Stop();
+                    break;
+
+                case "Breaktime Pause":
+                    CurrentStatus = "Breaktime Running";
+                    TimerStartButton = "⏸";
+                    _timer.Start();
+                    break;
             }
         }
 
@@ -373,25 +389,12 @@ namespace pomodoroTimer.ViewModel
 
         private void ResetTimer()
         {
-            if (_sessionActive == true && _breaktimeActive == false)
-            {
-                _sessionActive = false;
-                _timer.Stop();
-                CurrentStatus = "Session";
-                TimerStartButton = "▶";
-                SessionTime = 25;
-                _time = TimeSpan.FromMinutes(SessionTime);
-                CurrentTimeTextBlock = _time.ToString("c");
-            }
-            else
-            {
-                TimerStartButton = "▶";
-                SessionTime = 25;
-                _timer.Stop();
-                CurrentStatus = "Session";
-                _time = TimeSpan.FromMinutes(SessionTime);
-                CurrentTimeTextBlock = _time.ToString("c");
-            }
+            _timer.Stop();
+            CurrentStatus = "Focus Stop";
+            TimerStartButton = "▶";
+            SessionTime = 25;
+            _time = TimeSpan.FromMinutes(SessionTime);
+            RemainTimeTextBlock = _time.ToString("c");
         }
         private void BreakTiimeMinus()
         {
@@ -410,23 +413,23 @@ namespace pomodoroTimer.ViewModel
 
         private void SessionTimeMinus()
         {
-            if (SessionTime > 1 && _breaktimeActive == false && _sessionActive == false)
+            if (SessionTime > 1 && CurrentStatus == "Focus Stop")
             {
                 SessionTime--;
 
                 _time = TimeSpan.FromMinutes(SessionTime);
-                CurrentTimeTextBlock = _time.ToString("c");
+                RemainTimeTextBlock = _time.ToString("c");
             }
         }
 
         private void SessionTimePlus()
         {
-            if (_breaktimeActive == false && _sessionActive == false)
+            if (CurrentStatus == "Focus Stop")
             {
                 SessionTime++;
 
                 _time = TimeSpan.FromMinutes(SessionTime);
-                CurrentTimeTextBlock = _time.ToString("c");
+                RemainTimeTextBlock = _time.ToString("c");
             }
         }
 

@@ -126,11 +126,11 @@
             <StackPanel>
                 <TextBlock Text="Pomodoro App" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="white" Margin="0 50 0 45" />
                 <DockPanel DockPanel.Dock="Top" Background="#fa8072" Width="450" Height="400" Opacity="0.9" >
-                    <DockPanel Background="#ed2939" Width="120" Height="auto" DockPanel.Dock="Top" Margin="0 20 0 10"  >
+                    <DockPanel Background="#ed2939" Width="265" Height="auto" DockPanel.Dock="Top" Margin="0 20 0 10"  >
                         <TextBlock Text="{Binding Path=CurrentStatus}"  Foreground="white" HorizontalAlignment="center" FontSize="30" />
                     </DockPanel>
                     <DockPanel DockPanel.Dock="Top" HorizontalAlignment="center">
-                        <TextBlock Text="{Binding Path=CurrentTimeTextBlock}" FontSize="60" FontWeight="Bold" Foreground="white" />
+                        <TextBlock Text="{Binding Path=RemainTimeTextBlock}" FontSize="60" FontWeight="Bold" Foreground="white" />
                     </DockPanel>
                     <DockPanel Width="230" Height="100">
                         <Button Command="{Binding Path=StartTimerCommand}" Content="{Binding Path=TimerStartButton}" Style="{StaticResource ButtonHoverStyle}" FontSize="50" Foreground="white" Background="#fa8072" Width="100" Height="80" Cursor="Hand" />
