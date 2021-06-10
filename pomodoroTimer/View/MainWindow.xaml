@@ -48,18 +48,23 @@
 
                 <Menu Width="Auto" Grid.Column="0" Height="25" Background="#fa8072" Foreground="white" DockPanel.Dock="Top">
                     <MenuItem Header="_File" FontSize="18" >
-                        <MenuItem Header="_Open" />
-                        <MenuItem Header="_Save" />
+                        <MenuItem Header="_Open"  Foreground="#fa8072" />
+                        <MenuItem Header="_Save"  Foreground="#fa8072" />
                         <Separator />
-                        <MenuItem Header="_Exit" />
-                        <Behaviors:Interaction.Triggers>
-                            <Behaviors:EventTrigger EventName="Click">
-                                <Behaviors:CallMethodAction MethodName="Close"
+                        <MenuItem Header="_Exit"  Foreground="#fa8072">
+                            <Behaviors:Interaction.Triggers>
+                                <Behaviors:EventTrigger EventName="Click">
+                                    <Behaviors:CallMethodAction MethodName="Close"
                                TargetObject="{Binding RelativeSource={RelativeSource
                                                       Mode=FindAncestor,
                                                       AncestorType=Window}}" />
-                            </Behaviors:EventTrigger>
-                        </Behaviors:Interaction.Triggers>
+                                </Behaviors:EventTrigger>
+                            </Behaviors:Interaction.Triggers>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="_Account" FontSize="18" >
+                        <MenuItem Header="_Login" Command="{Binding Path=LoginWindowOpenCommand}" 
+                                  Foreground="#fa8072" />
                     </MenuItem>
                 </Menu>
                 <DockPanel Grid.Column="3">

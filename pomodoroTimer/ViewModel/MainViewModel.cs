@@ -131,6 +131,19 @@ namespace pomodoroTimer.ViewModel
         }
 
 
+
+        public ICommand LoginWindowOpenCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    LoginWindowOpen();
+                }, delegate () { return true; });
+            }
+        }
+
+
         public ICommand StartTimerCommand
         {
             get
@@ -266,6 +279,13 @@ namespace pomodoroTimer.ViewModel
             {
                 CurrentWindowState = WindowState.Maximized;
             }
+        }
+
+
+        private void LoginWindowOpen()
+        {
+            View.LoginView login = new View.LoginView();
+            login.Show();
         }
 
 
