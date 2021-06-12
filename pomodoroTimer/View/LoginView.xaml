@@ -32,6 +32,7 @@
             <Button Content="Log in" Command="{Binding Path=LoginCommand, Mode=OneTime}"
                     HorizontalAlignment="Center" />
         </StackPanel>
+        <TextBox Text="{Binding Path=Test}" Grid.Row="3" Grid.Column="1" />
 
     </Grid>
 </Window>

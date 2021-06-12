@@ -40,6 +40,15 @@ namespace pomodoroTimer.ViewModel
         }
 
 
+        private string _test;
+
+        public string Test
+        {
+            get { return _test; }
+            set { _test = value; OnPropertyChanged(nameof(Test)); }
+        }
+
+
         #endregion
 
         #region Command
@@ -106,25 +115,25 @@ namespace pomodoroTimer.ViewModel
                 try//예외 처리
                 {
                     mySqlConnection.Open();
-                string sql = "Select User_ID, Password from user_auth";
+                    string sql = "Select User_ID, Password from user_auth";
 
-                //ExecuteReader를 이용하여
-                //연결 모드로 데이타 가져오기
-                MySqlCommand cmd = new MySqlCommand(sql, mySqlConnection);
-                MySqlDataReader table = cmd.ExecuteReader();
+                    //ExecuteReader를 이용하여
+                    //연결 모드로 데이타 가져오기
+                    MySqlCommand cmd = new MySqlCommand(sql, mySqlConnection);
+                    MySqlDataReader table = cmd.ExecuteReader();
 
-                while (table.Read())
-                {
-                     
+                    while (table.Read())
+                    {
+                        Console.WriteLine("{0} {1}", table["User_ID"], table["Password"]); 
+                    }
+                    table.Close();
                 }
-                table.Close();
 
-                }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
-        }
+             }
         }
 
 
