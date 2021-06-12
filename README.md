@@ -1,2 +1,3 @@
 # pomodoroTimer
-<img src="http://www.hcstonline.org/wp-content/uploads/2020/03/Il_pomodoro.jpg" width="300px" alt="Pomodoro Timer"></img><br/>
+<img src="http://kr.tipsandtricks.tech/images/1417/pomodoro-technique.jpeg" width="300px" alt="Pomodoro Timer"></img><br/>
+
