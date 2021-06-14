@@ -12,6 +12,12 @@
         <viewModel:LoginViewModel/>
     </Window.DataContext>
 
+    <Window.Resources>
+        <DataTemplate x:Name="PomodoroTimer" DataType="{x:Type viewModel:PomodoroTimerViewModel}">
+            
+        </DataTemplate>
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />

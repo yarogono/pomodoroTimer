@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace pomodoroTimer.ViewModel
 {
-    class LoginViewModel : BasePropertyChanged
+    class LoginViewModel : ViewModelBase
     {
 
         #region Field
