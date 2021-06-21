@@ -16,9 +16,7 @@ namespace pomodoroTimer.ViewModel
 
         #region Field
 
-        private string _userName;
 
-        private string _password;
 
         #endregion
 
@@ -31,6 +29,7 @@ namespace pomodoroTimer.ViewModel
             set { _userName = value; OnPropertyChanged(nameof(Username)); }
         }
 
+        private string _userName;
 
 
         public string Password
@@ -39,8 +38,8 @@ namespace pomodoroTimer.ViewModel
             set { _password = value; OnPropertyChanged(nameof(Password)); }
         }
 
+        private string _password;
 
-        private string _test;
 
         public string Test
         {
@@ -48,6 +47,7 @@ namespace pomodoroTimer.ViewModel
             set { _test = value; OnPropertyChanged(nameof(Test)); }
         }
 
+        private string _test;
 
         #endregion
 

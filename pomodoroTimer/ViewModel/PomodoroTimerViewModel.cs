@@ -21,21 +21,10 @@ namespace pomodoroTimer.ViewModel
 
         #region Field
 
-        private WindowState _currentWindowState;
 
         private DispatcherTimer _timer;
-        private int _sessionTime = 25;
         private TimeSpan _time;
-        private string _currentStatus = "Focus Stop";
 
-        private string _remainTimeTextBlock = TimeSpan.FromMinutes(25).ToString("c");
-
-        private string _timerStartButton = "▶";
-
-        private int _breakTime = 5;
-
-        private string _selectedSound = "magicRing";
-        private ObservableCollection<string> _collectionSound;
 
         #endregion
 
@@ -47,6 +36,8 @@ namespace pomodoroTimer.ViewModel
             set { _currentWindowState = value; OnPropertyChanged(nameof(CurrentWindowState)); }
         }
 
+        private WindowState _currentWindowState;
+
 
         public string CurrentStatus
         {
@@ -54,6 +45,7 @@ namespace pomodoroTimer.ViewModel
             set { _currentStatus = value; OnPropertyChanged(nameof(CurrentStatus)); }
         }
 
+        private string _currentStatus = "Focus Stop";
 
 
         public string RemainTimeTextBlock
@@ -62,12 +54,15 @@ namespace pomodoroTimer.ViewModel
             set { _remainTimeTextBlock = value; OnPropertyChanged(nameof(RemainTimeTextBlock)); }
         }
 
+        private string _remainTimeTextBlock = TimeSpan.FromMinutes(25).ToString("c");
 
         public string TimerStartButton
         {
             get { return _timerStartButton; }
             set { _timerStartButton = value; OnPropertyChanged(nameof(TimerStartButton)); }
         }
+
+        private string _timerStartButton = "▶";
 
 
         public int BreakTime
@@ -76,6 +71,7 @@ namespace pomodoroTimer.ViewModel
             set { _breakTime = value; OnPropertyChanged(nameof(BreakTime)); }
         }
 
+        private int _breakTime = 5;
 
 
         public int SessionTime
@@ -84,6 +80,7 @@ namespace pomodoroTimer.ViewModel
             set { _sessionTime = value; OnPropertyChanged(nameof(SessionTime)); }
         }
 
+        private int _sessionTime = 25;
 
 
 
@@ -93,6 +90,7 @@ namespace pomodoroTimer.ViewModel
             set { _collectionSound = value; OnPropertyChanged(nameof(CollectionSound)); }
         }
 
+        private ObservableCollection<string> _collectionSound;
 
 
         public string SelectedSound
@@ -101,6 +99,7 @@ namespace pomodoroTimer.ViewModel
             set { _selectedSound = value; OnPropertyChanged(nameof(SelectedSound)); }
         }
 
+        private string _selectedSound = "magicRing";
 
 
         #endregion

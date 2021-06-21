@@ -17,10 +17,14 @@
 
 
     <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        
+        
+        
         
         
         <DockPanel Height="25"

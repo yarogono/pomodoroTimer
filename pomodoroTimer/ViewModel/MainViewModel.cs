@@ -14,7 +14,6 @@ namespace pomodoroTimer.ViewModel
 
         #region Field
 
-        private WindowState _currentWindowState;
 
         #endregion
 
@@ -28,6 +27,7 @@ namespace pomodoroTimer.ViewModel
             set { _currentWindowState = value; OnPropertyChanged(nameof(CurrentWindowState)); }
         }
 
+        private WindowState _currentWindowState;
         #endregion
 
         #region Command
