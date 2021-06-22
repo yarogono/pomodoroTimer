@@ -13,4 +13,8 @@ WPF MVVM패턴을 활용해서 UI디자인과 로직 부분을 따로 관리 할
 
 <img src="https://user-images.githubusercontent.com/70641418/121768173-c88b3a80-cb97-11eb-8df2-6d8c7af6a8a3.png" width="450px" alt="Pomodoro Timer"></img><br/>
 
-- 윈도우 툴바 직접 UI 디자인 후 삽입
+- 기존의 윈도우 툴바를 숨기고 직접 디자인한 툴바를 삽입했습니다.
+- 유저들이 쉽게 사용 할 수 있도록 UI는 최대한 심플하게 구성 했습니다.
+- 마크업 언어인 XAML을 통해 MVVM패턴의 View 부분 작성
+- View와 ViewModel 부분을 연결하기 
+- 데이터 바인딩을 통해 XAML의 UI 요소와 ViewModel로 표현되는 데이터 사이 연결
