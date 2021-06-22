@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:viewModel="clr-namespace:pomodoroTimer.ViewModel"
+		xmlns:views="clr-namespace:pomodoroTimer.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="850" Width="550"
         WindowState="{Binding Path=CurrentWindowState}"
@@ -14,7 +15,11 @@
         <viewModel:MainViewModel />
     </Window.DataContext>
 
-
+	<!--<Window.Resources>
+		<DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
+			<views:PomodoroTimerView/>
+		</DataTemplate>
+	</Window.Resources>-->
 
     <Grid>
         
@@ -70,12 +75,12 @@
                             </Behaviors:Interaction.Triggers>
                         </MenuItem>
                     </MenuItem>
-                    <MenuItem Header="_Account" FontSize="18" >
-                        <MenuItem Header="_Login" 
-                                  Command="{Binding Path=LoginWindowOpenCommand}" 
+					<MenuItem Header="_Account" FontSize="18" >
+						<MenuItem Header="_Login" 
+                                  Command="{Binding Path=LoginWindowOpenCommand}"
                                   Foreground="#fa8072" />
-                    </MenuItem>
-                </Menu>
+					</MenuItem>
+				</Menu>
                 <DockPanel Grid.Column="3">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -130,9 +135,7 @@
             </Grid>
         </DockPanel>
 
-        <ContentControl Grid.Row="1" 
+		<ContentControl Grid.Row="1" 
                         Content="{Binding Path=CurrentViewModel}"/>
-
-
-    </Grid>
+	</Grid>
 </Window>

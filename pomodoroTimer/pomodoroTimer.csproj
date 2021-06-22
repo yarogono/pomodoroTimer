@@ -164,9 +164,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataManager.Common.Lib\DataManager.Common.Lib.csproj">
+    <ProjectReference Include="..\DataManager.Common.Lib\PomodoroTimer.Common.Lib.csproj">
       <Project>{0E55E667-3AC6-4D8F-8E17-74346155D77E}</Project>
-      <Name>DataManager.Common.Lib</Name>
+      <Name>PomodoroTimer.Common.Lib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

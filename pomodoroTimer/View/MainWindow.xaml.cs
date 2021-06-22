@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using pomodoroTimer.ViewModel;
 
 namespace pomodoroTimer
 {
@@ -24,5 +25,9 @@ namespace pomodoroTimer
             InitializeComponent();
         }
 
-    }
+		private void MenuItem_Click(object sender, RoutedEventArgs e)
+		{
+            DataContext = new PomodoroTimerViewModel();
+		}
+	}
 }

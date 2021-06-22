@@ -1,4 +1,4 @@
-﻿using DataManager.Common.Lib;
+﻿using PomodoroTimer.Common.Lib;
 using Microsoft.Xaml.Behaviors;
 using System;
 using System.Collections.Generic;
@@ -131,16 +131,16 @@ namespace pomodoroTimer.ViewModel
 
 
 
-        public ICommand LoginWindowOpenCommand
-        {
-            get
-            {
-                return new DelegateCommand(() =>
-                {
-                    LoginWindowOpen();
-                }, delegate () { return true; });
-            }
-        }
+        //public ICommand LoginWindowOpenCommand
+        //{
+        //    get
+        //    {
+        //        return new DelegateCommand(() =>
+        //        {
+        //            LoginWindowOpen();
+        //        }, delegate () { return true; });
+        //    }
+        //}
 
 
         public ICommand StartTimerCommand
@@ -283,8 +283,10 @@ namespace pomodoroTimer.ViewModel
 
         private void LoginWindowOpen()
         {
-            View.LoginView login = new View.LoginView();
-            login.Show();
+            //View.LoginView login = new View.LoginView();
+            //login.Show();
+
+            
         }
 
 

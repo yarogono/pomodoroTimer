@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataManager.Common.Lib
+namespace PomodoroTimer.Common.Lib
 {
     public class BasePropertyChanged : INotifyPropertyChanged, IDisposable
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace DataManager.Common.Lib
+namespace PomodoroTimer.Common.Lib
 {
     public class DelegateCommand : ICommand
     {

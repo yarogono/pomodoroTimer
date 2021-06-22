@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pomodoroTimer", "pomodoroTi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{05091F14-B12B-439E-BE6A-97C5CDF05F6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManager.Common", "DataManager.Common\DataManager.Common.csproj", "{733E9E86-BAF1-40BD-9E8A-1872A91DFDF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PomodoroTimer.Common", "DataManager.Common\PomodoroTimer.Common.csproj", "{733E9E86-BAF1-40BD-9E8A-1872A91DFDF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManager.Common.Lib", "DataManager.Common.Lib\DataManager.Common.Lib.csproj", "{0E55E667-3AC6-4D8F-8E17-74346155D77E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PomodoroTimer.Common.Lib", "DataManager.Common.Lib\PomodoroTimer.Common.Lib.csproj", "{0E55E667-3AC6-4D8F-8E17-74346155D77E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
