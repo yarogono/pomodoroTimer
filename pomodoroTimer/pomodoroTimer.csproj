@@ -101,6 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\ToDoViewModel.cs" />
+    <Compile Include="View\ToDoView.xaml.cs">
+      <DependentUpon>ToDoView.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -130,6 +134,10 @@
       <DependentUpon>PomodoroTimerView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\StyleTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ToDoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

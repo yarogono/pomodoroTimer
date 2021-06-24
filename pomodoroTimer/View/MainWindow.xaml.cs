@@ -35,5 +35,10 @@ namespace pomodoroTimer
         {
             DataContext = new PomodoroTimerViewModel();
         }
+
+        private void ToDoMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new ToDoViewModel();
+        }
     }
 }

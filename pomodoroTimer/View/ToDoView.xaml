@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="pomodoroTimer.View.ToDoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:pomodoroTimer.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="400"
+             Background="#ed2939">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1"
+                    Background="#fa8072" 
+                    Margin="40 0 40 0">
+            <TextBlock Text="TO-DO LIST"
+                       FontSize="30"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       Foreground="White"/>
+            <Grid Margin="20 30 20 20"
+                  Height="45">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBox  VerticalAlignment="Stretch"
+                          VerticalContentAlignment="Center"
+                          FontSize="25"
+                          FontWeight="SemiBold"
+                          BorderThickness="0"
+                          Text="{Binding Path=ToDoText}"/>
+                <Button Grid.Column="1"
+                        Content="ADD"
+                        FontSize="25"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Background="#ed2939"
+                        Command="{Binding Path=TextAddCommand}"/>
+            </Grid>
+            <ListBox Height="400" 
+                     Margin="20 0"
+                     ItemsSource="{Binding Path=ListBoxItem}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

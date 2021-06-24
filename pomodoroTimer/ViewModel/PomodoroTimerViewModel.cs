@@ -33,8 +33,15 @@ namespace pomodoroTimer.ViewModel
 
         public string CurrentStatus
         {
-            get { return _currentStatus; }
-            set { _currentStatus = value; OnPropertyChanged(nameof(CurrentStatus)); }
+            get 
+            { 
+                return _currentStatus; 
+            }
+            set 
+            { 
+                _currentStatus = value; 
+                OnPropertyChanged(nameof(CurrentStatus)); 
+            }
         }
 
         private string _currentStatus = "Focus Stop";
@@ -42,16 +49,30 @@ namespace pomodoroTimer.ViewModel
 
         public string RemainTimeTextBlock
         {
-            get { return _remainTimeTextBlock; }
-            set { _remainTimeTextBlock = value; OnPropertyChanged(nameof(RemainTimeTextBlock)); }
+            get 
+            { 
+                return _remainTimeTextBlock;
+            }
+            set
+            {
+                _remainTimeTextBlock = value;
+                OnPropertyChanged(nameof(RemainTimeTextBlock));
+            }
         }
 
         private string _remainTimeTextBlock = TimeSpan.FromMinutes(25).ToString("c");
 
         public string TimerStartButton
         {
-            get { return _timerStartButton; }
-            set { _timerStartButton = value; OnPropertyChanged(nameof(TimerStartButton)); }
+            get 
+            { 
+                return _timerStartButton; 
+            }
+            set 
+            { 
+                _timerStartButton = value; 
+                OnPropertyChanged(nameof(TimerStartButton)); 
+            }
         }
 
         private string _timerStartButton = "▶";
@@ -59,8 +80,15 @@ namespace pomodoroTimer.ViewModel
 
         public int BreakTime
         {
-            get { return _breakTime; }
-            set { _breakTime = value; OnPropertyChanged(nameof(BreakTime)); }
+            get 
+            { 
+                return _breakTime; 
+            }
+            set 
+            { 
+                _breakTime = value; 
+                OnPropertyChanged(nameof(BreakTime)); 
+            }
         }
 
         private int _breakTime = 5;
@@ -68,8 +96,15 @@ namespace pomodoroTimer.ViewModel
 
         public int SessionTime
         {
-            get { return _sessionTime; }
-            set { _sessionTime = value; OnPropertyChanged(nameof(SessionTime)); }
+            get 
+            { 
+                return _sessionTime; 
+            }
+            set 
+            { 
+                _sessionTime = value; 
+                OnPropertyChanged(nameof(SessionTime)); 
+            }
         }
 
         private int _sessionTime = 25;
@@ -78,8 +113,15 @@ namespace pomodoroTimer.ViewModel
 
         public ObservableCollection<string> CollectionSound
         {
-            get { return _collectionSound; }
-            set { _collectionSound = value; OnPropertyChanged(nameof(CollectionSound)); }
+            get 
+            { 
+                return _collectionSound; 
+            }
+            set 
+            { 
+                _collectionSound = value; 
+                OnPropertyChanged(nameof(CollectionSound)); 
+            }
         }
 
         private ObservableCollection<string> _collectionSound;
@@ -87,8 +129,15 @@ namespace pomodoroTimer.ViewModel
 
         public string SelectedSound
         {
-            get { return _selectedSound; }
-            set { _selectedSound = value; OnPropertyChanged(nameof(SelectedSound)); }
+            get 
+            { 
+                return _selectedSound; 
+            }
+            set 
+            { 
+                _selectedSound = value; 
+                OnPropertyChanged(nameof(SelectedSound)); 
+            }
         }
 
         private string _selectedSound = "magicRing";

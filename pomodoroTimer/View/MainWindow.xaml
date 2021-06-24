@@ -18,6 +18,9 @@
         <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
             <views:LoginView DataContext="{Binding}"/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ToDoViewModel}">
+            <views:ToDoView DataContext="{Binding}" />
+        </DataTemplate>
 	</Window.Resources>
 
     <Grid>
@@ -47,7 +50,7 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
@@ -57,6 +60,8 @@
                               Click="LoginMenuItem_Click" />
                     <MenuItem Header="_Timer" FontSize="18" 
                               Click="TimerMenuItem_Click" />
+                    <MenuItem Header="_TO-DO LIST" FontSize="18"
+                              Click="ToDoMenuItem_Click" />
                 </Menu>
                 <DockPanel Grid.Column="3">
                     <Grid>
