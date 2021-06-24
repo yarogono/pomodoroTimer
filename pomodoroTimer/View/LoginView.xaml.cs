@@ -10,14 +10,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace pomodoroTimer.View
 {
     /// <summary>
-    /// Login.xaml에 대한 상호 작용 논리
+    /// LoginView1.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class LoginView : Window
+    public partial class LoginView : UserControl
     {
         public LoginView()
         {

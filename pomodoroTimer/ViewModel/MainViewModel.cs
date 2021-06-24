@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace pomodoroTimer.ViewModel
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : BasePropertyChanged
     {
 
         // wpf NavigationWindow을 활용해서 Multiple view 구성
@@ -33,8 +33,6 @@ namespace pomodoroTimer.ViewModel
         #endregion
 
         #region Property
-
-        public ContentControl CurrentViewModel { get; set; }
 
         public WindowState CurrentWindowState
         {
@@ -69,18 +67,6 @@ namespace pomodoroTimer.ViewModel
                 }, delegate () { return true; });
             }
         }
-
-
-		public ICommand LoginWindowOpenCommand
-		{
-			get
-			{
-				return new DelegateCommand(() =>
-				{
-					LoginWindowOpen();
-				}, delegate () { return true; });
-			}
-		}
 
 		#endregion
 
@@ -139,14 +125,6 @@ namespace pomodoroTimer.ViewModel
             }
         }
 
-
-        private void LoginWindowOpen()
-        {
-            //View.LoginView login = new View.LoginView();
-            //login.Show();
-
-            //CurrentViewModel = new LoginViewModel();
-        }
 
 
 

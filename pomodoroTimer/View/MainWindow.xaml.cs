@@ -23,11 +23,17 @@ namespace pomodoroTimer
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
 
-		private void MenuItem_Click(object sender, RoutedEventArgs e)
+		private void LoginMenuItem_Click(object sender, RoutedEventArgs e)
 		{
-            DataContext = new PomodoroTimerViewModel();
+            DataContext = new LoginViewModel();
 		}
-	}
+
+        private void TimerMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new PomodoroTimerViewModel();
+        }
+    }
 }

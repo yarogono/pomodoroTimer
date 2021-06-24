@@ -16,7 +16,7 @@ using System.Windows.Threading;
 
 namespace pomodoroTimer.ViewModel
 {
-    public class PomodoroTimerViewModel : ViewModelBase
+    public class PomodoroTimerViewModel : MainViewModel
     {
 
         #region Field
@@ -29,14 +29,6 @@ namespace pomodoroTimer.ViewModel
         #endregion
 
         #region Property
-
-        public WindowState CurrentWindowState
-        {
-            get { return _currentWindowState; }
-            set { _currentWindowState = value; OnPropertyChanged(nameof(CurrentWindowState)); }
-        }
-
-        private WindowState _currentWindowState;
 
 
         public string CurrentStatus
@@ -105,42 +97,6 @@ namespace pomodoroTimer.ViewModel
         #endregion
 
         #region Command
-
-        public ICommand WindowMinimizeCommand
-        {
-            get
-            {
-                return new DelegateCommand(() =>
-                {
-                    WindowMinimize();
-                }, delegate () { return true; });
-            }
-        }
-
-
-        public ICommand WindowMaxmizeCommand
-        {
-            get
-            {
-                return new DelegateCommand(() =>
-                {
-                    WindowMaximize();
-                }, delegate () { return true; });
-            }
-        }
-
-
-
-        //public ICommand LoginWindowOpenCommand
-        //{
-        //    get
-        //    {
-        //        return new DelegateCommand(() =>
-        //        {
-        //            LoginWindowOpen();
-        //        }, delegate () { return true; });
-        //    }
-        //}
 
 
         public ICommand StartTimerCommand
@@ -262,32 +218,6 @@ namespace pomodoroTimer.ViewModel
 
         #region Command Method
 
-        private void WindowMinimize()
-        {
-            CurrentWindowState = WindowState.Minimized;
-        }
-
-        private void WindowMaximize()
-        {
-
-            if (CurrentWindowState == WindowState.Maximized)
-            {
-                CurrentWindowState = WindowState.Normal;
-            }
-            else
-            {
-                CurrentWindowState = WindowState.Maximized;
-            }
-        }
-
-
-        private void LoginWindowOpen()
-        {
-            //View.LoginView login = new View.LoginView();
-            //login.Show();
-
-            
-        }
 
 
         private void TimerStartTimer()

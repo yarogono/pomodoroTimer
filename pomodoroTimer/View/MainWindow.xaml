@@ -11,15 +11,14 @@
         WindowState="{Binding Path=CurrentWindowState}"
          Style="{StaticResource CustomWindowStyle}">
 
-    <Window.DataContext>
-        <viewModel:MainViewModel />
-    </Window.DataContext>
-
-	<!--<Window.Resources>
-		<DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
-			<views:PomodoroTimerView/>
-		</DataTemplate>
-	</Window.Resources>-->
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:PomodoroTimerViewModel}">
+            <views:PomodoroTimerView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
+            <views:LoginView DataContext="{Binding}"/>
+        </DataTemplate>
+	</Window.Resources>
 
     <Grid>
         
@@ -27,10 +26,6 @@
             <RowDefinition Height="25" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
-        
-        
-        
         
         <DockPanel Height="25"
                    Background="#fa8072" 
@@ -58,29 +53,11 @@
                 </Grid.ColumnDefinitions>
 
                 <Menu Width="Auto" Grid.Column="0" Height="25" Background="#fa8072" Foreground="white" DockPanel.Dock="Top">
-                    <MenuItem Header="_File" FontSize="18" >
-                        <MenuItem Header="_Open"  
-                                  Command="{Binding Path=UpdateViewCommand}"
-                                  Foreground="#fa8072"/>
-                        <MenuItem Header="_Save"  Foreground="#fa8072" />
-                        <Separator />
-                        <MenuItem Header="_Exit"  Foreground="#fa8072">
-                            <Behaviors:Interaction.Triggers>
-                                <Behaviors:EventTrigger EventName="Click">
-                                    <Behaviors:CallMethodAction MethodName="Close"
-                                   TargetObject="{Binding RelativeSource={RelativeSource
-                                                          Mode=FindAncestor,
-                                                          AncestorType=Window}}" />
-                                </Behaviors:EventTrigger>
-                            </Behaviors:Interaction.Triggers>
-                        </MenuItem>
-                    </MenuItem>
-					<MenuItem Header="_Account" FontSize="18" >
-						<MenuItem Header="_Login" 
-                                  Command="{Binding Path=LoginWindowOpenCommand}"
-                                  Foreground="#fa8072" />
-					</MenuItem>
-				</Menu>
+                    <MenuItem Header="_Login" FontSize="18" 
+                              Click="LoginMenuItem_Click" />
+                    <MenuItem Header="_Timer" FontSize="18" 
+                              Click="TimerMenuItem_Click" />
+                </Menu>
                 <DockPanel Grid.Column="3">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -136,6 +113,6 @@
         </DockPanel>
 
 		<ContentControl Grid.Row="1" 
-                        Content="{Binding Path=CurrentViewModel}"/>
+                        Content="{Binding}"/>
 	</Grid>
 </Window>

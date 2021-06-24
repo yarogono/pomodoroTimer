@@ -1,125 +1,21 @@
-﻿<Window x:Class="pomodoroTimer.View.PomodoroTimerView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:viewModel="clr-namespace:pomodoroTimer.ViewModel"
-        mc:Ignorable="d"
-        Title="PomodoroTimer" MinHeight="750" MinWidth="460" Height="850" 
-        Width="550" Background="#ed2939" WindowState="{Binding Path=CurrentWindowState}"
-        Style="{StaticResource CustomWindowStyle}">
+﻿<UserControl x:Class="pomodoroTimer.View.PomodoroTimerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="550"
+             Background="#ed2939">
 
-    <Window.DataContext>
-        <viewModel:PomodoroTimerViewModel />
-    </Window.DataContext>
-
-
-    <Window.Resources>
+    <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="StyleTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Window.Resources>
+    </UserControl.Resources>
 
     <StackPanel>
-        <DockPanel Height="25" Background="#fa8072">
-            <DockPanel.Resources>
-                <Style TargetType="{x:Type Button}">
-                    <Setter Property="DockPanel.Dock" Value="Right"/>
-                    <Setter Property="Width" Value="30"/>
-                    <!-- WindowChrome의 caption위에 있는 버튼을 클릭하려면 True로 설정해야 함. -->
-                    <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
-                    <Setter Property="BorderThickness" Value="0"/>
-                </Style>
-
-                <Style TargetType="{x:Type Menu}">
-                    <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
-                </Style>
-            </DockPanel.Resources>
-         
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <Menu Width="Auto" Grid.Column="0" Height="25" Background="#fa8072" Foreground="white" DockPanel.Dock="Top">
-                    <MenuItem Header="_File" FontSize="18" >
-                        <MenuItem Header="_Open"  Foreground="#fa8072" />
-                        <MenuItem Header="_Save"  Foreground="#fa8072" />
-                        <Separator />
-                        <MenuItem Header="_Exit"  Foreground="#fa8072">
-                            <Behaviors:Interaction.Triggers>
-                                <Behaviors:EventTrigger EventName="Click">
-                                    <Behaviors:CallMethodAction MethodName="Close"
-                               TargetObject="{Binding RelativeSource={RelativeSource
-                                                      Mode=FindAncestor,
-                                                      AncestorType=Window}}" />
-                                </Behaviors:EventTrigger>
-                            </Behaviors:Interaction.Triggers>
-                        </MenuItem>
-                    </MenuItem>
-                    <MenuItem Header="_Account" FontSize="18" >
-                        <MenuItem Header="_Login" Command="{Binding Path=LoginWindowOpenCommand}" 
-                                  Foreground="#fa8072" />
-                    </MenuItem>
-                </Menu>
-                <DockPanel Grid.Column="3">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Button Command="{Binding Path=WindowMinimizeCommand}" Grid.Column="0" Background="#fa8072" BorderBrush="#fa8072">
-                            <Rectangle Width="11"
-                            Stroke="White"
-                            StrokeThickness="2.5"/>
-                        </Button>
-
-                        <Button Grid.Column="1" Background="#fa8072" BorderBrush="#fa8072" Command="{Binding Path=WindowMaxmizeCommand}">
-                            <Grid>
-                                <Rectangle Name="rectMax" Width="11" Height="11"
-                                         Stroke="White"
-                                         StrokeThickness="2.5"/>
-                                <Canvas Name="rectMin"  Visibility="Hidden">
-                                    <Polyline Points="2.375,2 2.375,0.375 10.625,0.375 10.625,8.625 9,8.625"
-                                                      StrokeThickness="2.5" Stroke="White"/>
-                                    <Rectangle Width="9" Height="9"
-                                                       Stroke="White"
-                                                       StrokeThickness="2.5" Margin="0,2,2,0"/>
-                                </Canvas>
-                            </Grid>
-                        </Button>
-
-                        <Button Grid.Column="2" Background="#fa8072" BorderBrush="#fa8072">
-                            <Behaviors:Interaction.Triggers>
-                                <Behaviors:EventTrigger EventName="Click">
-                                    <Behaviors:CallMethodAction MethodName="Close"
-                                   TargetObject="{Binding RelativeSource={RelativeSource
-                                                          Mode=FindAncestor,
-                                                          AncestorType=Window}}" />
-                                </Behaviors:EventTrigger>
-                            </Behaviors:Interaction.Triggers>
-                            <Canvas Height="25" Width="35" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Line    
-                                    X1="12" Y1="8" 
-                                    X2="22" Y2="18"    
-                                    Stroke="White" StrokeThickness="2.5"/>
-                                <Line    
-                                    X1="12" Y1="18"    
-                                    X2="22" Y2="8"  
-                                    Stroke="White" StrokeThickness="2.5"/>
-                            </Canvas>
-                        </Button>
-                    </Grid>
-                </DockPanel>
-            </Grid>
-        </DockPanel>
 
         <Grid>
             <!--<Behaviors:Interaction.Triggers>
@@ -198,4 +94,4 @@
             </StackPanel>
         </Grid>
     </StackPanel>
-</Window>
+</UserControl>
