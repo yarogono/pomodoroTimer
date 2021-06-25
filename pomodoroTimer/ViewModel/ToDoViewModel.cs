@@ -5,7 +5,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+
+
+
+// Listbox를 ListView로 해보기
 
 namespace pomodoroTimer.ViewModel
 {
@@ -13,6 +18,16 @@ namespace pomodoroTimer.ViewModel
     {
 
         #region Field
+
+        public class ToDoList
+        {
+            public string ToDo { get; set; }
+
+            public string Priority { get; set; }
+
+            public bool Mail { get; set; }
+        }
+
 
 
         #endregion
@@ -37,7 +52,7 @@ namespace pomodoroTimer.ViewModel
 
 
 
-        public ObservableCollection<string> ListBoxItem
+        public ObservableCollection<ToDoList> ListBoxItem
         {
             get 
             { 
@@ -50,7 +65,7 @@ namespace pomodoroTimer.ViewModel
             }
         }
 
-        private ObservableCollection<string> _listBoxItem;
+        private ObservableCollection<ToDoList> _listBoxItem;
 
         #endregion
 
@@ -96,7 +111,7 @@ namespace pomodoroTimer.ViewModel
 
         private void _initialize()
         {
-
+            ListBoxItem = new ObservableCollection<ToDoList>();
         }
 
         #endregion
@@ -109,14 +124,24 @@ namespace pomodoroTimer.ViewModel
 
         private void _textAdd()
         {
-            string test = "test";
-            ListBoxItem = new ObservableCollection<string>();
-            ListBoxItem.Add(test);
+
+            if (ToDoText == null)
+            {
+                MessageBox.Show("할일을 적어주세요.");
+                return;
+            }
+
+            ListBoxItem.Add(new ToDoList() { ToDo = ToDoText});
+
+            ToDoText = string.Empty;
         }
 
         #endregion
 
         #region Event Method
+
+
+
 
         #endregion
 

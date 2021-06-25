@@ -52,7 +52,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="130" />
                 </Grid.ColumnDefinitions>
 
                 <Menu Width="Auto" Grid.Column="0" Height="25" Background="#fa8072" Foreground="white" DockPanel.Dock="Top">

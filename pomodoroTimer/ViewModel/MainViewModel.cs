@@ -13,11 +13,6 @@ namespace pomodoroTimer.ViewModel
     public class MainViewModel : BasePropertyChanged
     {
 
-        // wpf NavigationWindow을 활용해서 Multiple view 구성
-        // SmartStore 프로젝트도 NavigationWindow로 작성 했는지 확인해보기
-        // 유튭에 wpf multipleview 검색 후 영상 하나씩 봐보기
-        // https://frozenpond.tistory.com/40 UserControl을 사용한 화면 이동
-
 
         // https://ddka.tistory.com/entry/C-WPF%EC%97%90%EC%84%9C-user-control%EA%B3%BC-data-binding%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B0%84%EB%8B%A8%ED%95%9C-%EC%84%A4%EB%AA%85
         // https://narup.tistory.com/68
