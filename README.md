@@ -18,3 +18,11 @@ WPF MVVM패턴을 활용해서 UI디자인과 로직 부분을 따로 관리 할
 - 마크업 언어인 XAML을 통해 MVVM패턴의 View 부분 작성
 - View와 ViewModel 부분을 연결하기 
 - 데이터 바인딩을 통해 XAML의 UI 요소와 ViewModel로 표현되는 데이터 사이 연결
+<br/>
+<br/>
+## TO-DO LIST 앱 구현
+<img src="C:\Users\naocy\OneDrive\바탕 화면\ToDo.jpg" width="450px" alt="TO-DO LIST"></img><br/>
+- 간단한 TO-DO-LIST앱 UI 구성했습니다.
+- MariaDB를 활용해서 데이터베이스를 구축했습니다.
+- 데이터베이스에 데이터 추가, 수정, 삭제관련 쿼리문을 직접 작성하고 다양한 오류를 접해봤습니다.
+- DBeaver라는 SQL 클라이언트이자 데이터베이스 관리 도구를 사용했습니다.
