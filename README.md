@@ -21,7 +21,7 @@ WPF MVVM패턴을 활용해서 UI디자인과 로직 부분을 따로 관리 할
 <br/>
 <br/>
 ## TO-DO LIST 앱 구현
-<img src="C:\Users\naocy\OneDrive\바탕 화면\ToDo.jpg" width="450px" alt="TO-DO LIST"></img><br/>
+<img src="https://user-images.githubusercontent.com/70641418/123513063-f3ac7880-d6c5-11eb-9554-f017549e2ceb.png" width="450px" alt="TO-DO LIST"></img><br/>
 - 간단한 TO-DO-LIST앱 UI 구성했습니다.
 - MariaDB를 활용해서 데이터베이스를 구축했습니다.
 - 데이터베이스에 데이터 추가, 수정, 삭제관련 쿼리문을 직접 작성하고 다양한 오류를 접해봤습니다.
