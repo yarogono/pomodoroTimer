@@ -1,4 +1,5 @@
-﻿using PomodoroTimer.Common.Lib;
+﻿using MySql.Data.MySqlClient;
+using PomodoroTimer.Common.Lib;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +11,8 @@ using System.Windows.Input;
 
 
 
-// Listbox를 ListView로 해보기
+// To-Do List에 해당하는 내용을 전부 입력 후 세이브 버튼을 누르면 저장 되는 기능으로 만들기
+// 전부 작성 후 Ctrl + S를 눌러야 저장되는 기능과 비슷하게
 
 namespace pomodoroTimer.ViewModel
 {
@@ -131,9 +133,39 @@ namespace pomodoroTimer.ViewModel
                 return;
             }
 
-            ListBoxItem.Add(new ToDoList() { ToDo = ToDoText});
 
-            ToDoText = string.Empty;
+            string connection = "Server = wow2020.iptime.org; Port = 10005; Database = datamanager; Uid = root; Pwd = xovudtjdeo";
+
+            using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
+            {
+                string insertQueryToDo = $"INSERT INTO to_do_list(To_Do) VALUES('{ToDoText}')";
+                try//예외 처리
+                {
+
+                    // Maria DB 연결
+                    mySqlConnection.Open();
+
+                    MySqlCommand mySqlCommandToDo = new MySqlCommand(insertQueryToDo, mySqlConnection);
+                    
+
+                    //만약에 내가처리한 쿼리가 DataBase에 인서트가 안되면 실패 메시지 출력
+                    if (mySqlCommandToDo.ExecuteNonQuery() == 0)
+                    {
+                        MessageBox.Show("ToDo 인서트 실패");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("실패");
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+        
+
+        ListBoxItem.Add(new ToDoList() { ToDo = ToDoText});
+
+            ToDoText = null;
         }
 
         #endregion
