@@ -43,18 +43,25 @@
                         FontWeight="Bold"
                         Foreground="White"
                         Background="#ed2939"
+                        BorderBrush="AliceBlue"
                         Command="{Binding Path=TextAddCommand}" />
             </Grid>
             <ListView Height="400" 
                      Margin="20 0"
-                     ItemsSource="{Binding Path=ListBoxItem}">
+                     ItemsSource="{Binding Path=ListBoxItem}"
+                     SelectedItem="{Binding Path=SelectedListBoxItem}">
+
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="할 일" 
+                        <GridViewColumn
                                         Width="320" 
-                                        DisplayMemberBinding="{Binding ToDo}" />
-                        <GridViewColumn Header="중요도" 
-                                        Width="50">
+                                        DisplayMemberBinding="{Binding Path=To_Do}">
+                            <GridViewColumnHeader Content="할 일" 
+                                                  TextElement.FontSize="18" 
+                                                  FontWeight="Bold"
+                                                  Foreground="#fa8072" />
+                        </GridViewColumn>
+                        <GridViewColumn Width="55">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox>
@@ -64,17 +71,33 @@
                                     </ComboBox>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
+                            <GridViewColumnHeader Content="중요도" 
+                                                  TextElement.FontSize="16" 
+                                                  FontWeight="Bold"
+                                                  Foreground="#fa8072" />
                         </GridViewColumn>
-                        <GridViewColumn Header="완료" Width="50">
+                        <GridViewColumn Width="50">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <CheckBox IsChecked="False"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
+                            <GridViewColumnHeader Content="완료" 
+                                                  TextElement.FontSize="16" 
+                                                  FontWeight="Bold"
+                                                  Foreground="#fa8072" />
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
+            <Button Content="DELETE" 
+                    Width="70"
+                    Margin="0 8 0 0"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Background="#ed2939"
+                    Foreground="White"
+                    BorderBrush="AliceBlue"/>
         </StackPanel>
     </Grid>
 </UserControl>

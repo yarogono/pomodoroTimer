@@ -3,6 +3,7 @@ using PomodoroTimer.Common.Lib;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,21 +22,10 @@ namespace pomodoroTimer.ViewModel
 
         #region Field
 
-        public class ToDoList
-        {
-            public string ToDo { get; set; }
-
-            public string Priority { get; set; }
-
-            public bool Mail { get; set; }
-        }
-
-
 
         #endregion
 
         #region Property
-
 
         public string ToDoText
         {
@@ -54,7 +44,7 @@ namespace pomodoroTimer.ViewModel
 
 
 
-        public ObservableCollection<ToDoList> ListBoxItem
+        public DataView ListBoxItem
         {
             get 
             { 
@@ -67,7 +57,25 @@ namespace pomodoroTimer.ViewModel
             }
         }
 
-        private ObservableCollection<ToDoList> _listBoxItem;
+        private DataView _listBoxItem;
+
+
+
+        public string SelectedListBoxItem
+        {
+            get 
+            { 
+                return _selectedListBoxItem; 
+            }
+            set 
+            { 
+                _selectedListBoxItem = value;
+                OnPropertyChanged(nameof(SelectedListBoxItem));
+            }
+        }
+
+        private string _selectedListBoxItem;
+
 
         #endregion
 
@@ -80,7 +88,7 @@ namespace pomodoroTimer.ViewModel
             {   
                 return new DelegateCommand(() =>
                 {
-                    _textAdd();
+                    _toDoAdd();
                 }, delegate () { return true; });
             }
         }
@@ -113,7 +121,7 @@ namespace pomodoroTimer.ViewModel
 
         private void _initialize()
         {
-            ListBoxItem = new ObservableCollection<ToDoList>();
+            _searchToDo();
         }
 
         #endregion
@@ -124,7 +132,7 @@ namespace pomodoroTimer.ViewModel
 
         #region Command Method
 
-        private void _textAdd()
+        private void _toDoAdd()
         {
 
             if (ToDoText == null)
@@ -153,7 +161,6 @@ namespace pomodoroTimer.ViewModel
                     {
                         MessageBox.Show("ToDo 인서트 실패");
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -161,18 +168,43 @@ namespace pomodoroTimer.ViewModel
                     MessageBox.Show(ex.ToString());
                 }
             }
-        
 
-        ListBoxItem.Add(new ToDoList() { ToDo = ToDoText});
+            _searchToDo();
 
             ToDoText = null;
         }
 
+
+        private void _searchToDo()
+        {
+            string connection = "Server = wow2020.iptime.org; Port = 10005; Database = datamanager; Uid = root; Pwd = xovudtjdeo";
+            DataSet dt = new DataSet();
+
+            using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
+            {
+                try//예외 처리
+                {
+                    MySqlDataAdapter adapter = new MySqlDataAdapter();
+                    adapter.SelectCommand = new MySqlCommand("Select * From to_do_list", mySqlConnection);
+                    adapter.Fill(dt, "to_do_list");
+
+
+                    ListBoxItem = dt.Tables["to_do_list"].DefaultView;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("실패");
+                    MessageBox.Show(ex.ToString());
+                }
+            }   
+        }
+
+
+
         #endregion
 
         #region Event Method
-
-
 
 
         #endregion
