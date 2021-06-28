@@ -50,7 +50,11 @@
                      Margin="20 0"
                      ItemsSource="{Binding Path=ListBoxItem}"
                      SelectedItem="{Binding Path=SelectedListBoxItem}">
-
+                <!--<Behaviors:Interaction.Triggers>
+                    <Behaviors:EventTrigger EventName="SelectionChanged" >
+                        <Behaviors:CallMethodAction TargetObject="{Binding}" MethodName="ListView_SelectionChanged"/>
+                    </Behaviors:EventTrigger>
+                </Behaviors:Interaction.Triggers>-->
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
@@ -97,7 +101,8 @@
                     FontWeight="Bold"
                     Background="#ed2939"
                     Foreground="White"
-                    BorderBrush="AliceBlue"/>
+                    BorderBrush="AliceBlue"
+                    Command="{Binding Path=DeleteItemCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>
