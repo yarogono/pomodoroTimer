@@ -23,6 +23,11 @@ namespace pomodoroTimer.ViewModel
 
         #region Field
 
+
+        private readonly string connection = 
+            "Server = wow2020.iptime.org; Port = 10005; " +
+            "Database = datamanager; Uid = root; Pwd = xovudtjdeo";
+
         #endregion
 
         #region Property
@@ -153,9 +158,6 @@ namespace pomodoroTimer.ViewModel
                 return;
             }
 
-
-            string connection = "Server = wow2020.iptime.org; Port = 10005; Database = datamanager; Uid = root; Pwd = xovudtjdeo";
-
             using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
             {
                 string insertQueryToDo = $"INSERT INTO to_do_list(To_Do) VALUES('{ToDoText}')";
@@ -189,9 +191,7 @@ namespace pomodoroTimer.ViewModel
 
         private void _searchToDo()
         {
-            string connection = "Server = wow2020.iptime.org; Port = 10005; Database = datamanager; Uid = root; Pwd = xovudtjdeo";
             DataSet dt = new DataSet();
-
             using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
             {
                 try//예외 처리
@@ -217,18 +217,19 @@ namespace pomodoroTimer.ViewModel
         private void _deleteItem()
         {
 
-            string connection = "Server = wow2020.iptime.org; Port = 10005; Database = datamanager; Uid = root; Pwd = xovudtjdeo";
+            if (SelectedListBoxItem == null)
+            {
+                MessageBox.Show("삭제 할 리스트를 선택해주세요.");
+                return;
+            }
 
             using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
             {
                 try//예외 처리
                 {
-
                     MySqlCommand cmd = new MySqlCommand($"DELETE FROM to_do_list WHERE To_Do = '{SelectedListBoxItem[1]}'", mySqlConnection);
                     cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
-
-
                 }
                 catch (Exception ex)
                 {
@@ -236,7 +237,6 @@ namespace pomodoroTimer.ViewModel
                     MessageBox.Show(ex.ToString());
                 }
             }
-
             _searchToDo();
         }
 
