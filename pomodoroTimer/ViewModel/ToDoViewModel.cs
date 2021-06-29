@@ -56,7 +56,7 @@ namespace pomodoroTimer.ViewModel
                 return _listBoxItem; 
             }
             set 
-            { 
+            {
                 _listBoxItem = value;
                 OnPropertyChanged(nameof(ListBoxItem));
             }
@@ -109,6 +109,20 @@ namespace pomodoroTimer.ViewModel
                 }, delegate () { return true; });
             }
         }
+
+
+
+        public ICommand UpdateItemCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    _updateItem();
+                }, delegate () { return true; });
+            }
+        }
+
 
         #endregion
 
@@ -239,6 +253,16 @@ namespace pomodoroTimer.ViewModel
             }
             _searchToDo();
         }
+
+
+
+        private void _updateItem()
+        {
+
+
+            _searchToDo();
+        }
+
 
         #endregion
 
