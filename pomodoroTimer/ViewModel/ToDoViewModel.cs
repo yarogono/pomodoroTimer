@@ -23,7 +23,6 @@ namespace pomodoroTimer.ViewModel
 
         #region Field
 
-
         private readonly string connection = 
             "Server = wow2020.iptime.org; Port = 10005; " +
             "Database = datamanager; Uid = root; Pwd = xovudtjdeo";
@@ -153,6 +152,8 @@ namespace pomodoroTimer.ViewModel
         private void _initialize()
         {
             _searchToDo();
+
+
         }
 
         #endregion
@@ -241,7 +242,7 @@ namespace pomodoroTimer.ViewModel
             {
                 try//예외 처리
                 {
-                    MySqlCommand cmd = new MySqlCommand($"DELETE FROM to_do_list WHERE To_Do = '{SelectedListBoxItem[1]}'", mySqlConnection);
+                    MySqlCommand cmd = new MySqlCommand($"DELETE FROM to_do_list WHERE To_Do_Index = '{SelectedListBoxItem[0]}'", mySqlConnection);
                     cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                 }
@@ -259,7 +260,27 @@ namespace pomodoroTimer.ViewModel
         private void _updateItem()
         {
 
+            if (SelectedListBoxItem == null)
+            {
+                MessageBox.Show("테스트");
+                return;
+            }
 
+            using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
+            {
+                try//예외 처리
+                {
+                    MySqlCommand cmd = new MySqlCommand(
+                        $"UPDATE to_do_list SET To_Do = '{SelectedListBoxItem[1]}' WHERE To_Do_Index = '{SelectedListBoxItem[0]}'", mySqlConnection);
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("실패");
+                    MessageBox.Show(ex.ToString());
+                }
+            }
             _searchToDo();
         }
 
