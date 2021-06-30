@@ -5,28 +5,58 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:pomodoroTimer.View"
              mc:Ignorable="d" 
-             d:DesignHeight="750" d:DesignWidth="400">
+             d:DesignHeight="750" d:DesignWidth="400" 
+             Background="#ed2939">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="7*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Username:" Grid.Row="0" Grid.Column="0" />
-        <TextBox Text="{Binding Path=Username}" Grid.Row="0" Grid.Column="1" />
-        <TextBlock Text="Password:" Grid.Row="1" Grid.Column="0" />
-        <TextBox Text="{Binding Path=Password}" Grid.Row="1" Grid.Column="1"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
-            <Button Content="Log in" Command="{Binding Path=LoginCommand, Mode=OneTime}"
-                    HorizontalAlignment="Center" />
-        </StackPanel>
-        <TextBox Text="{Binding Path=Test}" Grid.Row="3" Grid.Column="1" />
+
+
+        <Grid Grid.Row="1"
+              Margin="10"
+              Background="#fa8072"  >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Username:"
+                       FontSize="18"
+                       Foreground="white"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Path=Username}" 
+                     Grid.Column="1" />
+            <TextBlock Text="Password:" 
+                       FontSize="18"
+                       Foreground="white"
+                       Grid.Row="1" 
+                       VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Path=Password}" 
+                     Grid.Row="1" Grid.Column="1"/>
+            <StackPanel Orientation="Horizontal" 
+                        Grid.Row="2" Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center">
+                <Button Content="Log in" 
+                        FontSize="43"
+                        FontWeight="Bold"
+                        Command="{Binding Path=LoginCommand, Mode=OneTime}"
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        Background="#ed2939"
+                        Foreground="white"
+                        BorderBrush="white"/>
+            </StackPanel>
+        </Grid>
 
     </Grid>
 </UserControl>

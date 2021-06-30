@@ -62,7 +62,7 @@
 
                 <DataGrid.Columns>
                     <DataGridTextColumn TextElement.FontSize="15"
-                                        Width="280"
+                                        Width="312"
                                         Binding="{Binding To_Do}">
                         <DataGridTextColumn.Header>
                             <TextBlock Text="할 일"
@@ -78,16 +78,16 @@
                         </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
                     
-                    <DataGridTemplateColumn Width="60">
+                    <DataGridTemplateColumn Width="65">
                         <DataGridTemplateColumn.Header>
                             <TextBlock Text="중요도"
-                                       FontSize="17"
+                                       FontSize="18"
                                        Foreground="#fa8072"
                                        FontWeight="Bold" />
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <ComboBox Width="50">
+                                <ComboBox Width="65">
                                     <ComboBoxItem Content="A"
                                                   FontSize="18"
                                                   FontWeight="Bold"
