@@ -209,10 +209,12 @@ namespace pomodoroTimer.ViewModel
             DataSet dt = new DataSet();
             using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
             {
+                string searchSql = "Select * From to_do_list";
+
                 try//예외 처리
                 {
                     MySqlDataAdapter adapter = new MySqlDataAdapter();
-                    adapter.SelectCommand = new MySqlCommand("Select * From to_do_list", mySqlConnection);
+                    adapter.SelectCommand = new MySqlCommand(searchSql, mySqlConnection);
                     adapter.Fill(dt, "to_do_list");
 
 
@@ -240,9 +242,12 @@ namespace pomodoroTimer.ViewModel
 
             using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
             {
-                try//예외 처리
+                string deleteSql = $"DELETE FROM to_do_list WHERE To_Do_Index = " +
+                    $"'{SelectedListBoxItem[0]}'";
+
+                try
                 {
-                    MySqlCommand cmd = new MySqlCommand($"DELETE FROM to_do_list WHERE To_Do_Index = '{SelectedListBoxItem[0]}'", mySqlConnection);
+                    MySqlCommand cmd = new MySqlCommand(deleteSql, mySqlConnection);
                     cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                 }
@@ -268,10 +273,12 @@ namespace pomodoroTimer.ViewModel
 
             using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
             {
+                string updateSql = $"UPDATE to_do_list SET To_Do = '{SelectedListBoxItem[1]}' " +
+                    $"WHERE To_Do_Index = '{SelectedListBoxItem[0]}'";
+
                 try//예외 처리
                 {
-                    MySqlCommand cmd = new MySqlCommand(
-                        $"UPDATE to_do_list SET To_Do = '{SelectedListBoxItem[1]}' WHERE To_Do_Index = '{SelectedListBoxItem[0]}'", mySqlConnection);
+                    MySqlCommand cmd = new MySqlCommand(updateSql, mySqlConnection);
                     cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                 }

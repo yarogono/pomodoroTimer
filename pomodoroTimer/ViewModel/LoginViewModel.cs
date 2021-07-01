@@ -25,8 +25,15 @@ namespace pomodoroTimer.ViewModel
 
         public string Username
         {
-            get { return _userName; }
-            set { _userName = value; OnPropertyChanged(nameof(Username)); }
+            get 
+            { 
+                return _userName; 
+            }
+            set
+            { 
+                _userName = value; 
+                OnPropertyChanged(nameof(Username)); 
+            }
         }
 
         private string _userName;
@@ -34,8 +41,15 @@ namespace pomodoroTimer.ViewModel
 
         public string Password
         {
-            get { return _password; }
-            set { _password = value; OnPropertyChanged(nameof(Password)); }
+            get 
+            { 
+                return _password; 
+            }
+            set 
+            { 
+                _password = value; 
+                OnPropertyChanged(nameof(Password)); 
+            }
         }
 
         private string _password;
@@ -43,8 +57,15 @@ namespace pomodoroTimer.ViewModel
 
         public string Test
         {
-            get { return _test; }
-            set { _test = value; OnPropertyChanged(nameof(Test)); }
+            get 
+            { 
+                return _test; 
+            }
+            set 
+            { 
+                _test = value; 
+                OnPropertyChanged(nameof(Test)); 
+            }
         }
 
         private string _test;
@@ -64,7 +85,6 @@ namespace pomodoroTimer.ViewModel
                 }, delegate () { return true; });
             }
         }
-
 
 
         #endregion
@@ -112,21 +132,14 @@ namespace pomodoroTimer.ViewModel
 
             using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
             {
-                try//예외 처리
+                string sql = $"INSERT INTO user_auth(User_Id, Password) " +
+                    $"VALUES('{Username}', '{Password}')";
+
+                try
                 {
                     mySqlConnection.Open();
-                    string sql = "Select User_ID, Password from user_auth";
-
-                    //ExecuteReader를 이용하여
-                    //연결 모드로 데이타 가져오기
                     MySqlCommand cmd = new MySqlCommand(sql, mySqlConnection);
-                    MySqlDataReader table = cmd.ExecuteReader();
-
-                    while (table.Read())
-                    {
-                        Console.WriteLine("{0} {1}", table["User_ID"], table["Password"]); 
-                    }
-                    table.Close();
+                    cmd.ExecuteNonQuery();
                 }
 
                 catch (Exception ex)
