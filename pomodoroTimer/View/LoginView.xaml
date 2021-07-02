@@ -34,14 +34,14 @@
                        Foreground="white"
                        FontWeight="Bold"
                        VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Path=Username}" 
+            <TextBox Text="{Binding Path=UserId}" 
                      Grid.Column="1" />
             <TextBlock Text="Password:" 
                        FontSize="18"
                        Foreground="white"
                        Grid.Row="1" 
                        VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Path=Password}" 
+            <TextBox Text="{Binding Path=UserPassword}" 
                      Grid.Row="1" Grid.Column="1"/>
             <StackPanel Orientation="Horizontal" 
                         Grid.Row="2" Grid.ColumnSpan="2"

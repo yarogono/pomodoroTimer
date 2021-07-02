@@ -101,6 +101,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\TO_DO_LIST.cs" />
+    <Compile Include="Model\USER_AUTH.cs" />
     <Compile Include="ViewModel\ToDoViewModel.cs" />
     <Compile Include="View\ToDoView.xaml.cs">
       <DependentUpon>ToDoView.xaml</DependentUpon>
@@ -180,5 +182,6 @@
     <Content Include="RingSound\ringSound.wav" />
     <Content Include="RingSound\toyTelephone.wav" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

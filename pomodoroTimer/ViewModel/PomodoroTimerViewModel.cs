@@ -154,7 +154,7 @@ namespace pomodoroTimer.ViewModel
             {
                 return new DelegateCommand(() =>
                 {
-                    TimerStartTimer();
+                    _startTimer();
                 }, delegate () { return true; });
             }
         }
@@ -166,7 +166,7 @@ namespace pomodoroTimer.ViewModel
             {
                 return new DelegateCommand(() =>
                 {
-                    ResetTimer();
+                    _resetTimer();
                 }, delegate () { return true; });
             }
         }
@@ -179,7 +179,7 @@ namespace pomodoroTimer.ViewModel
             {
                 return new DelegateCommand(() =>
                 {
-                    BreakTiimeMinus();
+                    _breakTiimeMinus();
                 }, delegate () { return true; });
             }
         }
@@ -191,7 +191,7 @@ namespace pomodoroTimer.ViewModel
             {
                 return new DelegateCommand(() =>
                 {
-                    BreakTimePlus();
+                    _breakTimePlus();
                 }, delegate () { return true; });
             }
         }
@@ -204,7 +204,7 @@ namespace pomodoroTimer.ViewModel
             {
                 return new DelegateCommand(() =>
                 {
-                    SessionTimeMinus();
+                    _sessionTimeMinus();
                 }, delegate () { return true; });
             }
         }
@@ -215,7 +215,7 @@ namespace pomodoroTimer.ViewModel
             {
                 return new DelegateCommand(() =>
                 {
-                    SessionTimePlus();
+                    _sessionTimePlus();
                 }, delegate () { return true; });
             }
         }
@@ -261,7 +261,36 @@ namespace pomodoroTimer.ViewModel
 
         #region User Metod
 
+        private void RingTheBell()
+        {
+            string magicRing
+                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\magicRing.wav";
 
+            string ringSound
+                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\ringSound.wav";
+
+            string toyTelephone
+                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\toyTelephone.wav";
+
+
+            string plyerFilePath = "";
+            switch (SelectedSound)
+            {
+                case "magicRing":
+                    plyerFilePath = magicRing;
+                    break;
+                case "ringSound":
+                    plyerFilePath = ringSound;
+                    break;
+                case "toyTelephone":
+                    plyerFilePath = toyTelephone;
+                    break;
+            }
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            mediaPlayer.Open(new System.Uri(plyerFilePath));
+            mediaPlayer.Position = TimeSpan.Zero;
+            mediaPlayer.Play();
+        }
 
         #endregion
 
@@ -269,7 +298,7 @@ namespace pomodoroTimer.ViewModel
 
 
 
-        private void TimerStartTimer()
+        private void _startTimer()
         {
 
             switch (CurrentStatus)
@@ -355,39 +384,7 @@ namespace pomodoroTimer.ViewModel
         }
 
 
-        private void RingTheBell()
-        {
-            string magicRing
-                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\magicRing.wav";
-
-            string ringSound
-                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\ringSound.wav";
-
-            string toyTelephone
-                        = @"D:\coding\c#\toyProject\pomodoroTimer\pomodoroTimer\RingSound\toyTelephone.wav";
-
-
-            string plyerFilePath = "";
-            switch (SelectedSound)
-            {
-                case "magicRing":
-                    plyerFilePath = magicRing;
-                    break;
-                case "ringSound":
-                    plyerFilePath = ringSound;
-                    break;
-                case "toyTelephone":
-                    plyerFilePath = toyTelephone;
-                    break;
-            }
-            MediaPlayer mediaPlayer = new MediaPlayer();
-            mediaPlayer.Open(new System.Uri(plyerFilePath));
-            mediaPlayer.Position = TimeSpan.Zero;
-            mediaPlayer.Play();
-        }
-
-
-        private void ResetTimer()
+        private void _resetTimer()
         {
             _timer.Stop();
             CurrentStatus = "Focus Stop";
@@ -396,14 +393,14 @@ namespace pomodoroTimer.ViewModel
             _time = TimeSpan.FromMinutes(SessionTime);
             RemainTimeTextBlock = _time.ToString("c");
         }
-        private void BreakTiimeMinus()
+        private void _breakTiimeMinus()
         {
             if (BreakTime > 0)
             {
                 BreakTime--;
             }
         }
-        private void BreakTimePlus()
+        private void _breakTimePlus()
         {
             if (BreakTime < 10)
             {
@@ -411,7 +408,7 @@ namespace pomodoroTimer.ViewModel
             }
         }
 
-        private void SessionTimeMinus()
+        private void _sessionTimeMinus()
         {
             if (SessionTime > 1 && CurrentStatus == "Focus Stop")
             {
@@ -422,7 +419,7 @@ namespace pomodoroTimer.ViewModel
             }
         }
 
-        private void SessionTimePlus()
+        private void _sessionTimePlus()
         {
             if (CurrentStatus == "Focus Stop")
             {

@@ -166,6 +166,10 @@ namespace pomodoroTimer.ViewModel
 
         private void _toDoAdd()
         {
+            LoginViewModel loginViewModel = new LoginViewModel();
+            
+            Console.WriteLine(loginViewModel.UserAuthIndex);
+
 
             if (ToDoText == null)
             {

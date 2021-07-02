@@ -23,52 +23,52 @@ namespace pomodoroTimer.ViewModel
         #region Property
 
 
-        public string Username
+        public string UserId
         {
             get 
             { 
-                return _userName; 
+                return _userId; 
             }
             set
-            { 
-                _userName = value; 
-                OnPropertyChanged(nameof(Username)); 
+            {
+                _userId = value; 
+                OnPropertyChanged(nameof(UserId)); 
             }
         }
 
-        private string _userName;
+        private string _userId;
 
 
-        public string Password
+        public string UserPassword
         {
             get 
             { 
-                return _password; 
+                return _userPassword; 
             }
             set 
-            { 
-                _password = value; 
-                OnPropertyChanged(nameof(Password)); 
+            {
+                _userPassword = value; 
+                OnPropertyChanged(nameof(UserPassword)); 
             }
         }
 
-        private string _password;
+        private string _userPassword;
 
 
-        public string Test
+        public int UserAuthIndex
         {
             get 
             { 
-                return _test; 
+                return _userAuthIndex; 
             }
             set 
-            { 
-                _test = value; 
-                OnPropertyChanged(nameof(Test)); 
+            {
+                _userAuthIndex = value; 
+                OnPropertyChanged(nameof(UserAuthIndex)); 
             }
         }
 
-        private string _test;
+        private int _userAuthIndex;
 
         #endregion
 
@@ -85,7 +85,6 @@ namespace pomodoroTimer.ViewModel
                 }, delegate () { return true; });
             }
         }
-
 
         #endregion
 
@@ -130,16 +129,26 @@ namespace pomodoroTimer.ViewModel
         {
             string connection = "Server = wow2020.iptime.org; Port = 10005; Database = datamanager; Uid = root; Pwd = xovudtjdeo";
 
+
             using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
             {
-                string sql = $"INSERT INTO user_auth(User_Id, Password) " +
-                    $"VALUES('{Username}', '{Password}')";
+                string loginSql = "SELECT * FROM user_auth WHERE User_Id=@User_Id AND User_Password=@UserPassword";
 
                 try
                 {
                     mySqlConnection.Open();
-                    MySqlCommand cmd = new MySqlCommand(sql, mySqlConnection);
-                    cmd.ExecuteNonQuery();
+                    MySqlCommand mySqlCmd = new MySqlCommand(loginSql, mySqlConnection);  
+                    mySqlCmd.Parameters.AddWithValue("@User_Id", UserId);
+                    mySqlCmd.Parameters.AddWithValue("@UserPassword", UserPassword);
+                    MySqlDataReader reader = mySqlCmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (UserPassword == reader[2].ToString())
+                        {
+                            UserAuthIndex = (int)reader[0];
+                            MessageBox.Show("성공했닭");
+                        }
+                    }
                 }
 
                 catch (Exception ex)

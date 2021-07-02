@@ -117,7 +117,7 @@
             </Grid>
         </DockPanel>
 
-		<ContentControl Grid.Row="1" 
-                        Content="{Binding}"/>
-	</Grid>
+        <ContentControl Grid.Row="1" 
+                        Content="{Binding}" />
+    </Grid>
 </Window>
