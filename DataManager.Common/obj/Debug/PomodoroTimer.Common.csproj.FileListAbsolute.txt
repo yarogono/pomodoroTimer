@@ -1,0 +1,6 @@
+D:\coding\c#\toyProject\pomodoroTimer\DataManager.Common\bin\Debug\DataManager.Common.dll
+D:\coding\c#\toyProject\pomodoroTimer\DataManager.Common\bin\Debug\DataManager.Common.pdb
+D:\coding\c#\toyProject\pomodoroTimer\DataManager.Common\obj\Debug\PomodoroTimer.Common.csproj.AssemblyReference.cache
+D:\coding\c#\toyProject\pomodoroTimer\DataManager.Common\obj\Debug\PomodoroTimer.Common.csproj.CoreCompileInputs.cache
+D:\coding\c#\toyProject\pomodoroTimer\DataManager.Common\obj\Debug\DataManager.Common.dll
+D:\coding\c#\toyProject\pomodoroTimer\DataManager.Common\obj\Debug\DataManager.Common.pdb
