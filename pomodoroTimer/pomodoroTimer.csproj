@@ -101,6 +101,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\SqlServerAuth.cs" />
     <Compile Include="Model\TO_DO_LIST.cs" />
     <Compile Include="Model\USER_AUTH.cs" />
     <Compile Include="ViewModel\ToDoViewModel.cs" />
@@ -178,6 +179,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="RingSound\magicRing.wav" />
     <Content Include="RingSound\ringSound.wav" />
     <Content Include="RingSound\toyTelephone.wav" />

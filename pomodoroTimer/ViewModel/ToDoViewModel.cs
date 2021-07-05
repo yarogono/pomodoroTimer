@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using PomodoroTimer.Common.Lib;
+using pomodoroTimer.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,13 +24,10 @@ namespace pomodoroTimer.ViewModel
 
         #region Field
 
-        private readonly string connection = 
-            "Server = wow2020.iptime.org; Port = 10005; " +
-            "Database = datamanager; Uid = root; Pwd = xovudtjdeo";
-
         #endregion
 
         #region Property
+
 
         public string ToDoText
         {
@@ -151,9 +149,8 @@ namespace pomodoroTimer.ViewModel
 
         private void _initialize()
         {
+
             _searchToDo();
-
-
         }
 
         #endregion
@@ -177,8 +174,9 @@ namespace pomodoroTimer.ViewModel
                 return;
             }
 
-            using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
+            using (MySqlConnection mySqlConnection = new MySqlConnection(SqlServerAuth.connection))
             {
+
                 string insertQueryToDo = $"INSERT INTO to_do_list(To_Do) VALUES('{ToDoText}')";
                 try//예외 처리
                 {
@@ -211,7 +209,7 @@ namespace pomodoroTimer.ViewModel
         private void _searchToDo()
         {
             DataSet dt = new DataSet();
-            using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
+            using (MySqlConnection mySqlConnection = new MySqlConnection(SqlServerAuth.connection))
             {
                 string searchSql = "Select * From to_do_list";
 
@@ -244,7 +242,7 @@ namespace pomodoroTimer.ViewModel
                 return;
             }
 
-            using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
+            using (MySqlConnection mySqlConnection = new MySqlConnection(SqlServerAuth.connection))
             {
                 string deleteSql = $"DELETE FROM to_do_list WHERE To_Do_Index = " +
                     $"'{SelectedListBoxItem[0]}'";
@@ -275,7 +273,7 @@ namespace pomodoroTimer.ViewModel
                 return;
             }
 
-            using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
+            using (MySqlConnection mySqlConnection = new MySqlConnection(SqlServerAuth.connection))
             {
                 string updateSql = $"UPDATE to_do_list SET To_Do = '{SelectedListBoxItem[1]}' " +
                     $"WHERE To_Do_Index = '{SelectedListBoxItem[0]}'";

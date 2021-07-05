@@ -23,7 +23,7 @@ namespace pomodoroTimer
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            DataContext = new LoginViewModel();
         }
 
 		private void LoginMenuItem_Click(object sender, RoutedEventArgs e)
