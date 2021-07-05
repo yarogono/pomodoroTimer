@@ -15,11 +15,8 @@
         <DataTemplate DataType="{x:Type viewModel:PomodoroTimerViewModel}">
             <views:PomodoroTimerView DataContext="{Binding}"/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
-            <views:LoginView DataContext="{Binding}"/>
-        </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:ToDoViewModel}">
-            <views:ToDoView DataContext="{Binding}" />
+            <views:ToDoView DataContext="{Binding }" />
         </DataTemplate>
     </Window.Resources>
 
@@ -56,8 +53,16 @@
                 </Grid.ColumnDefinitions>
 
                 <Menu Width="Auto" Grid.Column="0" Height="25" Background="#fa8072" Foreground="white" DockPanel.Dock="Top">
-                    <MenuItem Header="_Login" FontSize="18" 
-                              Click="LoginMenuItem_Click" />
+                    <MenuItem Header="_Login" FontSize="18">
+                        <Behaviors:Interaction.Triggers>
+                            <Behaviors:EventTrigger EventName="Click" >
+                                <Behaviors:CallMethodAction TargetObject="{Binding}" MethodName="LoginMenuItem_Click"/>
+                            </Behaviors:EventTrigger>
+                        </Behaviors:Interaction.Triggers>
+                    </MenuItem>
+                    
+                    
+                    
                     <MenuItem Header="_Timer" FontSize="18" 
                               Click="TimerMenuItem_Click" />
                     <MenuItem Header="_TO-DO LIST" FontSize="18"

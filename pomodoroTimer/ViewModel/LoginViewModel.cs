@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using pomodoroTimer.Model;
 
 namespace pomodoroTimer.ViewModel
 {
@@ -127,10 +128,7 @@ namespace pomodoroTimer.ViewModel
 
         private void Login()
         {
-            string connection = "Server = wow2020.iptime.org; Port = 10005; Database = datamanager; Uid = root; Pwd = xovudtjdeo";
-
-
-            using (MySqlConnection mySqlConnection = new MySqlConnection(connection))
+            using (MySqlConnection mySqlConnection = new MySqlConnection(SqlServerAuth.connection))
             {
                 string loginSql = "SELECT * FROM user_auth WHERE User_Id=@User_Id AND User_Password=@UserPassword";
 
@@ -147,6 +145,8 @@ namespace pomodoroTimer.ViewModel
                         {
                             UserAuthIndex = (int)reader[0];
                             MessageBox.Show("성공했닭");
+
+
                         }
                     }
                 }
@@ -159,11 +159,13 @@ namespace pomodoroTimer.ViewModel
         }
 
 
-            #endregion
+        #endregion
 
-            #region Event Method
+        #region Event Method
 
-            #endregion
 
-        }
+
+        #endregion
+
+    }
 }

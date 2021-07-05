@@ -1,4 +1,5 @@
-﻿using PomodoroTimer.Common.Lib;
+﻿using pomodoroTimer.View;
+using PomodoroTimer.Common.Lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -126,6 +127,12 @@ namespace pomodoroTimer.ViewModel
         #endregion
 
         #region Event Method
+
+        public void LoginMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            LoginView login = new LoginView();
+            login.Show();
+        }
 
         #endregion
 

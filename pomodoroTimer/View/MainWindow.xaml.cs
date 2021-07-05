@@ -23,13 +23,11 @@ namespace pomodoroTimer
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel();
-        }
+            DataContext = new PomodoroTimerViewModel();
 
-		private void LoginMenuItem_Click(object sender, RoutedEventArgs e)
-		{
-            DataContext = new LoginViewModel();
-		}
+            // 앱 실행 시 스크린이 센터에서 시작 되도록
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+        }
 
         private void TimerMenuItem_Click(object sender, RoutedEventArgs e)
         {
