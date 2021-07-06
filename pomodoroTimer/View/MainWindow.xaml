@@ -21,16 +21,15 @@
     </Window.Resources>
 
     <Grid>
-        
         <Grid.RowDefinitions>
-            <RowDefinition Height="25" />
+            <RowDefinition Height="27" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
-        <DockPanel Height="25"
-                   Background="#fa8072" 
-                   VerticalAlignment="Top"
-                   Grid.Row="0">
+
+        <DockPanel Height="27"
+                       Background="#fa8072" 
+                       VerticalAlignment="Top"
+                       Grid.Row="0">
             <DockPanel.Resources>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="DockPanel.Dock" Value="Right"/>
@@ -53,8 +52,8 @@
                 </Grid.ColumnDefinitions>
 
                 <Menu Width="Auto" Grid.Column="0" Height="25" 
-                      Background="#fa8072" Margin="10 0 0 0"
-                      Foreground="white" DockPanel.Dock="Top">
+                          Background="#fa8072" Margin="10 0 0 0"
+                          Foreground="white" DockPanel.Dock="Top">
                     <MenuItem Header="_Login" FontSize="18">
                         <Behaviors:Interaction.Triggers>
                             <Behaviors:EventTrigger EventName="Click" >
@@ -62,13 +61,13 @@
                             </Behaviors:EventTrigger>
                         </Behaviors:Interaction.Triggers>
                     </MenuItem>
-                    
-                    
-                    
+
+
+
                     <MenuItem Header="_Timer" FontSize="18" 
-                              Click="TimerMenuItem_Click" />
+                                  Click="TimerMenuItem_Click" />
                     <MenuItem Header="_TO-DO LIST" FontSize="18"
-                              Click="ToDoMenuItem_Click" />
+                                  Click="ToDoMenuItem_Click" />
                 </Menu>
                 <DockPanel Grid.Column="3">
                     <Grid>
@@ -80,38 +79,46 @@
 
                         <Button Command="{Binding Path=WindowMinimizeCommand}" Grid.Column="0" Background="#fa8072" BorderBrush="#fa8072">
                             <Rectangle Width="11"
-                                Stroke="White"
-                                StrokeThickness="2.5"/>
+                                    Stroke="White"
+                                    StrokeThickness="2.5"/>
                         </Button>
 
                         <Button Grid.Column="1" Background="#fa8072" BorderBrush="#fa8072" Command="{Binding Path=WindowMaxmizeCommand}">
                             <Grid>
                                 <Rectangle Name="rectMax" Width="11" Height="11"
-                                             Stroke="White"
-                                             StrokeThickness="2.5"/>
+                                                 Stroke="White"
+                                                 StrokeThickness="2.5"/>
                                 <Canvas Name="rectMin"  Visibility="Hidden">
                                     <Polyline Points="2.375,2 2.375,0.375 10.625,0.375 10.625,8.625 9,8.625"
-                                                          StrokeThickness="2.5" Stroke="White"/>
+                                                              StrokeThickness="2.5" Stroke="White"/>
                                     <Rectangle Width="9" Height="9"
-                                                           Stroke="White"
-                                                           StrokeThickness="2.5" Margin="0,2,2,0"/>
+                                                               Stroke="White"
+                                                               StrokeThickness="2.5" Margin="0,2,2,0"/>
                                 </Canvas>
                             </Grid>
                         </Button>
 
                         <Button Grid.Column="2" 
-                                Background="#fa8072" 
-                                BorderBrush="#fa8072"
-                                Command="{Binding Path=CloseCommand}">
+                                    Background="#fa8072" 
+                                    BorderBrush="#fa8072"
+                                    Command="{Binding Path=CloseCommand}">
+                            <!--<Behaviors:Interaction.Triggers>
+                                    <Behaviors:EventTrigger EventName="Click">
+                                        <Behaviors:CallMethodAction MethodName="Close"
+                                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                                  Mode=FindAncestor,
+                                                                  AncestorType=Window}}" />
+                                    </Behaviors:EventTrigger>
+                                </Behaviors:Interaction.Triggers>-->
                             <Canvas Height="25" Width="35" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Line    
-                                        X1="12" Y1="8" 
-                                        X2="22" Y2="18"    
-                                        Stroke="White" StrokeThickness="2.5"/>
+                                            X1="12" Y1="8" 
+                                            X2="22" Y2="18"    
+                                            Stroke="White" StrokeThickness="2.5"/>
                                 <Line    
-                                        X1="12" Y1="18"    
-                                        X2="22" Y2="8"  
-                                        Stroke="White" StrokeThickness="2.5"/>
+                                            X1="12" Y1="18"    
+                                            X2="22" Y2="8"  
+                                            Stroke="White" StrokeThickness="2.5"/>
                             </Canvas>
                         </Button>
                     </Grid>
@@ -120,6 +127,6 @@
         </DockPanel>
 
         <ContentControl Grid.Row="1"
-                        Content="{Binding}" />
+                            Content="{Binding}" />
     </Grid>
 </Window>

@@ -144,7 +144,12 @@ namespace pomodoroTimer.ViewModel
         public void LoginMenuItem_Click(object sender, RoutedEventArgs e)
         {
             LoginView login = new LoginView();
-            login.Show();
+
+            /* 전혁공부
+             * ShowDialog()함수는 second window가 열렸을 때 Main window를 클릭하지 못하게 한다.
+             * Show()함수는 second window를 열고 Main window 클릭이 가능하다.
+             */
+            login.ShowDialog();
         }
 
         #endregion

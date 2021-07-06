@@ -3,66 +3,103 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:viewModel="clr-namespace:pomodoroTimer.ViewModel"
         mc:Ignorable="d"
         WindowStyle="None"
         ResizeMode="NoResize"
         Title="Login" Height="400" Width="400"
-        Background="#ed2939">
+        Background="#fa8072" 
+        Style="{StaticResource CustomWindowStyle}">
 
     <Window.DataContext>
         <viewModel:LoginViewModel/>
     </Window.DataContext>
-    
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="7*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
 
-
-
-        <Grid Grid.Row="1"
-            Margin="10"
-            Background="#fa8072">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
+    <Border BorderThickness="5"
+            BorderBrush="#a91b0d"
+            CornerRadius="14">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="5*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Text="Username:"
-                    FontSize="18"
-                    Foreground="white"
-                    FontWeight="Bold"
-                    VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Path=UserId}" 
-                    Grid.Column="1" />
-            <TextBlock Text="Password:"
-                    FontSize="18"
-                    Foreground="white"
-                    Grid.Row="1" 
-                    VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Path=UserPassword}" 
-                    Grid.Row="1" Grid.Column="1"/>
-            <StackPanel Orientation="Horizontal" 
-                    Grid.Row="2" Grid.ColumnSpan="2"
-                    HorizontalAlignment="Center">
-                <Button Content="Log in" 
-                    FontSize="43"
-                    FontWeight="Bold"
-                    Command="{Binding Path=LoginCommand, Mode=OneTime}"
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    Background="#ed2939"
-                    Foreground="white"
-                    BorderBrush="white"/>
-            </StackPanel>
+
+            <Label Content="Login" Foreground="White"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="35"
+                   FontWeight="Bold"/>
+
+
+            <Border Padding="10"
+                     Grid.Row="1"
+                     Background="#e3242b"
+                     Margin="5">
+                <StackPanel Background="#e3242b">
+                    <TextBlock Text="Username"
+                                   FontSize="23"
+                                   Foreground="white"
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Path=UserId}"
+                             Height="50"
+                             VerticalContentAlignment="Center"
+                             FontSize="20"
+                             FontWeight="Bold"
+                             Foreground="White"
+                             Background="#fa8072"
+                             BorderBrush="#a91b0d"
+                             BorderThickness="2">
+                    </TextBox>
+                    <TextBlock Text="Password"
+                                    FontSize="23"
+                                    FontWeight="Bold"
+                                    Foreground="white"
+                                    VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Path=UserPassword}" 
+                             Height="50" 
+                             VerticalContentAlignment="Center"
+                             FontSize="20"
+                             FontWeight="Bold"
+                             Foreground="White"
+                             Background="#fa8072"
+                             BorderBrush="#a91b0d"
+                             BorderThickness="2"/>
+                    <StackPanel Margin="0 20 0 0"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+                        <Button Content="Log in" 
+                                    FontSize="35"
+                                    FontWeight="Bold"
+                                    Margin="0 0 20 0"
+                                    Command="{Binding Path=LoginCommand, Mode=OneTime}"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                    Background="#fa8072"
+                                    Foreground="white"
+                                    BorderBrush="white"/>
+                        <Button Content="Cancel"
+                                    FontSize="35"
+                                    FontWeight="Bold"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                    Background="#fa8072"
+                                    Foreground="white"
+                                    BorderBrush="white">
+                            <Behaviors:Interaction.Triggers>
+                                <Behaviors:EventTrigger EventName="Click">
+                                    <Behaviors:CallMethodAction MethodName="Close"
+                                                TargetObject="{Binding RelativeSource={RelativeSource
+                                                                        Mode=FindAncestor,
+                                                                        AncestorType=Window}}" />
+                                </Behaviors:EventTrigger>
+                            </Behaviors:Interaction.Triggers>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
         </Grid>
-    </Grid>
+    </Border>
 </Window>
