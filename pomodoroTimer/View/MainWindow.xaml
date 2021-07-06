@@ -52,7 +52,9 @@
                     <ColumnDefinition Width="130" />
                 </Grid.ColumnDefinitions>
 
-                <Menu Width="Auto" Grid.Column="0" Height="25" Background="#fa8072" Foreground="white" DockPanel.Dock="Top">
+                <Menu Width="Auto" Grid.Column="0" Height="25" 
+                      Background="#fa8072" Margin="10 0 0 0"
+                      Foreground="white" DockPanel.Dock="Top">
                     <MenuItem Header="_Login" FontSize="18">
                         <Behaviors:Interaction.Triggers>
                             <Behaviors:EventTrigger EventName="Click" >
@@ -97,15 +99,10 @@
                             </Grid>
                         </Button>
 
-                        <Button Grid.Column="2" Background="#fa8072" BorderBrush="#fa8072">
-                            <Behaviors:Interaction.Triggers>
-                                <Behaviors:EventTrigger EventName="Click">
-                                    <Behaviors:CallMethodAction MethodName="Close"
-                                       TargetObject="{Binding RelativeSource={RelativeSource
-                                                              Mode=FindAncestor,
-                                                              AncestorType=Window}}" />
-                                </Behaviors:EventTrigger>
-                            </Behaviors:Interaction.Triggers>
+                        <Button Grid.Column="2" 
+                                Background="#fa8072" 
+                                BorderBrush="#fa8072"
+                                Command="{Binding Path=CloseCommand}">
                             <Canvas Height="25" Width="35" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Line    
                                         X1="12" Y1="8" 

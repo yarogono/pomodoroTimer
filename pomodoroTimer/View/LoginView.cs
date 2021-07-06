@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pomodoroTimer.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,12 @@ namespace pomodoroTimer.View
         public LoginView()
         {
             InitializeComponent();
+
+            // LoginView screen을 종료 시켜줌
+            LoginViewModel vm = new LoginViewModel();
+            this.DataContext = vm;
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(this.Close);
 
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }

@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:pomodoroTimer.ViewModel"
         mc:Ignorable="d"
-        Title="Login" Height="750" Width="400"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Title="Login" Height="400" Width="400"
         Background="#ed2939">
 
     <Window.DataContext>

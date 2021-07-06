@@ -64,15 +64,28 @@ namespace pomodoroTimer.ViewModel
             }
         }
 
-		#endregion
 
-		#region Event Handler
+        public ICommand CloseCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    Environment.Exit(0);  // Close all Windows in WPF App
+                }, delegate () { return true; });
+            }
+        }
 
-		#endregion
 
-		#region Constructor
+        #endregion
 
-		public MainViewModel()
+        #region Event Handler
+
+        #endregion
+
+        #region Constructor
+
+        public MainViewModel()
         {
             _initialize();
         }

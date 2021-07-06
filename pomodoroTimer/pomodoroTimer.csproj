@@ -106,12 +106,12 @@
     <Compile Include="Model\USER_AUTH.cs" />
     <Compile Include="ViewModel\ToDoViewModel.cs" />
     <Compile Include="View\LoginView.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
+      <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Control\ToDoView.xaml.cs">
       <DependentUpon>ToDoView.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\Login.xaml">
+    <Page Include="View\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

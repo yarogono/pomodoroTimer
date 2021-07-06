@@ -23,6 +23,8 @@ namespace pomodoroTimer.ViewModel
 
         #region Property
 
+        // CloseAction 속성을 실행 시 LoginView screen 종료
+        public Action CloseAction { get; set; }
 
         public string UserId
         {
@@ -146,7 +148,7 @@ namespace pomodoroTimer.ViewModel
                             UserAuthIndex = (int)reader[0];
                             MessageBox.Show("성공했닭");
 
-
+                            CloseAction();
                         }
                     }
                 }
