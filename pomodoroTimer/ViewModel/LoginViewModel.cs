@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using pomodoroTimer.Model;
+using pomodoroTimer.View;
 
 namespace pomodoroTimer.ViewModel
 {
@@ -89,6 +90,19 @@ namespace pomodoroTimer.ViewModel
             }
         }
 
+
+        public ICommand SignUpBtnCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    SignUpBtnClick();
+                }, delegate () { return true; });
+            }
+        }
+
+
         #endregion
 
         #region Event Handler
@@ -146,7 +160,7 @@ namespace pomodoroTimer.ViewModel
                         if (UserPassword == reader[2].ToString())
                         {
                             UserAuthIndex = (int)reader[0];
-                            MessageBox.Show("성공했닭");
+                            MessageBox.Show("성공");
 
                             CloseAction();
                         }
@@ -160,6 +174,14 @@ namespace pomodoroTimer.ViewModel
              }
         }
 
+
+        private void SignUpBtnClick()
+        {
+            CloseAction();
+
+            SignUpView signUpView = new SignUpView();
+            signUpView.ShowDialog();
+        }
 
         #endregion
 

@@ -183,9 +183,7 @@ namespace pomodoroTimer.ViewModel
 
                     // Maria DB 연결
                     mySqlConnection.Open();
-
                     MySqlCommand mySqlCommandToDo = new MySqlCommand(insertQueryToDo, mySqlConnection);
-                    
 
                     //만약에 내가처리한 쿼리가 DataBase에 인서트가 안되면 실패 메시지 출력
                     if (mySqlCommandToDo.ExecuteNonQuery() == 0)

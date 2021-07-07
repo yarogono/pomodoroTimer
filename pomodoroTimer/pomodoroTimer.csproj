@@ -104,12 +104,16 @@
     <Compile Include="Model\SqlServerAuth.cs" />
     <Compile Include="Model\TO_DO_LIST.cs" />
     <Compile Include="Model\USER_AUTH.cs" />
+    <Compile Include="ViewModel\SignUpViewModel.cs" />
     <Compile Include="ViewModel\ToDoViewModel.cs" />
     <Compile Include="View\LoginView.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Control\ToDoView.xaml.cs">
       <DependentUpon>ToDoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SignUpView.xaml.cs">
+      <DependentUpon>SignUpView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\LoginView.xaml">
       <SubType>Designer</SubType>
@@ -136,6 +140,10 @@
     <Compile Include="View\Control\PomodoroTimerView.xaml.cs">
       <DependentUpon>PomodoroTimerView.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\SignUpView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\StyleTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
