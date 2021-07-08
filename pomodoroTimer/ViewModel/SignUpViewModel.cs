@@ -150,25 +150,33 @@ namespace pomodoroTimer.ViewModel
             }
 
 
+            //https://ellapresso.tistory.com/48 링크 참고해서 중복되면 넣지 않도록 하기
+
             using (MySqlConnection mySqlConnection = new MySqlConnection(SqlServerAuth.connection))
             {
-                string loginSql = "INSERT INTO user_auth(User_Id, User_Password) VALUES(@User_Id, @User_Password)";
+                string IdDuplicateTest =
+                                       $"INSERT INTO user_auth " +
+                                       $"(User_Id, User_Password) " +
+                                       $"SELECT @User_Id, @UserPassword " +
+                                       $"FROM DUAL " +
+                                       $"WHERE NOT EXISTS(SELECT User_Id FROM user_auth WHERE User_Id = '{UserId}')";
+
 
                 try
                 {
                     mySqlConnection.Open();
-                    MySqlCommand mySqlCmd = new MySqlCommand(loginSql, mySqlConnection);
-                    mySqlCmd.Parameters.AddWithValue("@User_Id", UserId);
-                    mySqlCmd.Parameters.AddWithValue("@User_Password", UserPassword);
-                    mySqlCmd.ExecuteReader();
+                    MySqlCommand mySqlCommand = new MySqlCommand(IdDuplicateTest, mySqlConnection);
+                    mySqlCommand.Parameters.AddWithValue("@User_Id", UserId);
+                    mySqlCommand.Parameters.AddWithValue("@UserPassword", UserPassword);
 
-                    if (mySqlCmd.ExecuteNonQuery() == 1)
+                    if (mySqlCommand.ExecuteNonQuery() == 0)
+                    {
+                        MessageBox.Show("중복된 아이디입니다");
+                        return;
+                    }
+                    else
                     {
                         MessageBox.Show("계정이 생성되었습니다.");
-                        CloseAction();
-
-                        LoginView loginView = new LoginView();
-                        loginView.ShowDialog();
                     }
                 }
 
