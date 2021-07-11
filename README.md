@@ -28,3 +28,16 @@ WPF MVVM패턴을 활용해서 UI디자인과 로직 부분을 따로 관리 할
 - MariaDB를 활용해서 데이터베이스를 구축했습니다.
 - 데이터베이스에 데이터 추가, 수정, 삭제관련 쿼리문을 직접 작성하고 다양한 오류를 접해봤습니다.
 - DBeaver라는 SQL 클라이언트이자 데이터베이스 관리 도구를 사용했습니다.
+<br/>
+<br/>
+
+## 로그인창 구현
+
+<img src="https://user-images.githubusercontent.com/70641418/125197666-a4577200-e299-11eb-8c64-7c1973dda02b.JPG"></img><br/>
+<br/>
+<br/>
+
+## Sign Up창 구현
+
+<img src="https://user-images.githubusercontent.com/70641418/125197745-dff23c00-e299-11eb-8deb-f4e0b43ef807.JPG"></img><br/>
+
