@@ -34,10 +34,18 @@ WPF MVVM패턴을 활용해서 UI디자인과 로직 부분을 따로 관리 할
 ## 로그인창 구현
 
 <img src="https://user-images.githubusercontent.com/70641418/125197666-a4577200-e299-11eb-8c64-7c1973dda02b.JPG"></img><br/>
+- xaml을 이용한 간단한 UI 디자인 구현했습니다.
+- SQL문을 활용해 MariaDB 데이터베이스와 연동했습니다.
+- PasswordBox를 통한 유저 비밀번호 보안
+- PasswordBox에 입력된 값을 해시 함수를 이용해 MariaDB 데이터베이스에 Select하게 했습니다.
+
 <br/>
 <br/>
 
 ## Sign Up창 구현
 
 <img src="https://user-images.githubusercontent.com/70641418/125197745-dff23c00-e299-11eb-8deb-f4e0b43ef807.JPG"></img><br/>
+- Login창에서 Sign Up 버튼을 누르면 창이 뜨도록 만들었습니다.
+- 패스워드 입력 시 PasswordBox를 이용해 입력되는 패스워드가 노출 되는 것을 방지했습니다.
+- PasswordBox에서 받아온 데이터를 해시함수를 통해 암호화 해서 MariaDB에 inser를 하게 됩니다.
 
