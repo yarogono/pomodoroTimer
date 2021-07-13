@@ -5,6 +5,9 @@ using PomodoroTimer.Common.Lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,7 +21,9 @@ namespace pomodoroTimer.ViewModel
 
         #region Field
 
+        private string _userPassword = string.Empty;
 
+        private string _confirmPassword = string.Empty;
 
         #endregion
 
@@ -43,35 +48,39 @@ namespace pomodoroTimer.ViewModel
         private string _userId;
 
 
-        public string UserPassword
-        {
-            get
-            {
-                return _userPassword;
-            }
-            set
-            {
-                _userPassword = value;
-                OnPropertyChanged(nameof(UserPassword));
-            }
-        }
+        //public string UserPassword
+        //{
+        //    get
+        //    {
+        //        return _userPassword;
+        //    }
+        //    set
+        //    {
+        //        _userPassword = value;
+        //        OnPropertyChanged(nameof(UserPassword));
+        //    }
+        //}
 
-        private string _userPassword;
+        //private string _userPassword;
 
 
-        public string ConfirmPassword
-        {
-            get
-            { 
-                return _confirmPassword; 
-            }
-            set 
-            { 
-                _confirmPassword = value;
-                OnPropertyChanged(nameof(ConfirmPassword));
-            }
-        }
-        private string _confirmPassword;
+        public SecureString UserPassword { private get; set; }
+
+        public SecureString ConfirmPassword { private get; set; }
+
+        //public string ConfirmPassword
+        //{
+        //    get
+        //    { 
+        //        return _confirmPassword; 
+        //    }
+        //    set 
+        //    { 
+        //        _confirmPassword = value;
+        //        OnPropertyChanged(nameof(ConfirmPassword));
+        //    }
+        //}
+        //private string _confirmPassword;
 
 
         #endregion
@@ -125,6 +134,27 @@ namespace pomodoroTimer.ViewModel
 
         #region User Method
 
+        private string passwordToHash(SecureString password)
+        {
+            string hashPasssword = string.Empty;
+
+            IntPtr valuePtr = IntPtr.Zero;
+
+            valuePtr = Marshal.SecureStringToGlobalAllocUnicode(password);
+
+            using (SHA256 hash = SHA256Managed.Create())
+            {
+                Encoding enc = Encoding.UTF8;
+
+                Byte[] result = hash.ComputeHash(enc.GetBytes(Marshal.PtrToStringUni(valuePtr)));
+
+                foreach (Byte b in result)
+                    hashPasssword += b.ToString("x2"); //You could also use other encodingslike BASE64 
+
+                return hashPasssword;
+            }
+        }
+
         #endregion
 
         #region Command Method
@@ -133,15 +163,10 @@ namespace pomodoroTimer.ViewModel
         
         private void CreateAccount()
         {
-            if (UserPassword != ConfirmPassword)
-            {
-                MessageBox.Show("Password와 Confirm Password가 같지 않습니다.");
-                return;
-            }
-
+         
             bool SingUpNull = string.IsNullOrEmpty(UserId);
-            SingUpNull = string.IsNullOrEmpty(UserPassword);
-            SingUpNull = string.IsNullOrEmpty(ConfirmPassword);
+            //SingUpNull = string.IsNullOrEmpty(UserPassword);
+            //SingUpNull = string.IsNullOrEmpty(ConfirmPassword);
 
             if (SingUpNull == true)
             {
@@ -149,9 +174,22 @@ namespace pomodoroTimer.ViewModel
                 return;
             }
 
+            _userPassword = "";
+            _confirmPassword = "";
 
-            //https://ellapresso.tistory.com/48 링크 참고해서 중복되면 넣지 않도록 하기
 
+            _userPassword = passwordToHash(UserPassword);
+            _confirmPassword = passwordToHash(ConfirmPassword);
+
+
+            if (_userPassword != _confirmPassword)
+            {
+                MessageBox.Show("Password와 Confirm Password가 같지 않습니다.");
+                return;
+            }
+
+            //https://ellapresso.tistory.com/48 링크 참고해서 데이터베이스에 중복되면 넣지 않도록 하기
+            
             using (MySqlConnection mySqlConnection = new MySqlConnection(SqlServerAuth.connection))
             {
                 string IdDuplicateTest =
@@ -161,13 +199,12 @@ namespace pomodoroTimer.ViewModel
                                        $"FROM DUAL " +
                                        $"WHERE NOT EXISTS(SELECT User_Id FROM user_auth WHERE User_Id = '{UserId}')";
 
-
                 try
                 {
                     mySqlConnection.Open();
                     MySqlCommand mySqlCommand = new MySqlCommand(IdDuplicateTest, mySqlConnection);
                     mySqlCommand.Parameters.AddWithValue("@User_Id", UserId);
-                    mySqlCommand.Parameters.AddWithValue("@UserPassword", UserPassword);
+                    mySqlCommand.Parameters.AddWithValue("@UserPassword", _userPassword);
 
                     if (mySqlCommand.ExecuteNonQuery() == 0)
                     {

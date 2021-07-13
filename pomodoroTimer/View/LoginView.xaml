@@ -58,7 +58,7 @@
                                     FontWeight="Bold"
                                     Foreground="white"
                                     VerticalAlignment="Center"/>
-                    <TextBox Text="{Binding Path=UserPassword}" 
+                    <PasswordBox PasswordChanged="PasswordBox_PasswordChanged" 
                              Height="50" 
                              VerticalContentAlignment="Center"
                              FontSize="20"

@@ -10,6 +10,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using pomodoroTimer.Model;
 using pomodoroTimer.View;
+using System.Security;
+using System.IO;
+using System.Security.Cryptography;
+using System.Runtime.InteropServices;
 
 namespace pomodoroTimer.ViewModel
 {
@@ -18,7 +22,7 @@ namespace pomodoroTimer.ViewModel
 
         #region Field
 
-
+        private string password = string.Empty;
 
         #endregion
 
@@ -43,21 +47,22 @@ namespace pomodoroTimer.ViewModel
         private string _userId;
 
 
-        public string UserPassword
-        {
-            get 
-            { 
-                return _userPassword; 
-            }
-            set 
-            {
-                _userPassword = value; 
-                OnPropertyChanged(nameof(UserPassword)); 
-            }
-        }
+        //public string UserPassword
+        //{
+        //    get 
+        //    { 
+        //        return _userPassword; 
+        //    }
+        //    set 
+        //    {
+        //        _userPassword = value; 
+        //        OnPropertyChanged(nameof(UserPassword)); 
+        //    }
+        //}
 
-        private string _userPassword;
+        //private string _userPassword;
 
+        public SecureString UserPassword { private get; set; }
 
         public int UserAuthIndex
         {
@@ -138,6 +143,29 @@ namespace pomodoroTimer.ViewModel
 
         #region User Method
 
+        //private byte[] GetPasswordHash(string username, string password, string salt)
+        //{
+        //    // get salted byte[] buffer, containing username, password and some (constant) salt
+        //    byte[] buffer;
+        //    using (MemoryStream stream = new MemoryStream())
+        //    using (StreamWriter writer = new StreamWriter(stream))
+        //    {
+        //        writer.Write(salt);
+        //        writer.Write(username);
+        //        writer.Write(password);
+        //        writer.Flush();
+
+        //        buffer = stream.ToArray();
+        //    }
+
+        //    // create a hash
+        //    SHA1 sha1 = SHA1.Create();
+        //    return sha1.ComputeHash(buffer);
+        //}
+
+
+
+
         #endregion
 
         #region Command Method
@@ -148,22 +176,46 @@ namespace pomodoroTimer.ViewModel
             {
                 string loginSql = "SELECT * FROM user_auth WHERE User_Id=@User_Id AND User_Password=@UserPassword";
 
+                password = "";
+
+                // https://stackoverflow.com/questions/30618564/securestring-password-stored-in-database
+                // 위 링크 참조해서 해결 중
+
+                IntPtr valuePtr = IntPtr.Zero;
+
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(UserPassword);
+
+                using (SHA256 hash = SHA256Managed.Create())
+                {
+                    Encoding enc = Encoding.UTF8;
+
+                    //the user id is the salt. 
+                    //So 2 users with same password have different hashes. 
+                    //For example if someone knows his own hash he can't see who has same password
+
+                    //string input = userInput + userId;
+                    Byte[] result = hash.ComputeHash(enc.GetBytes(Marshal.PtrToStringUni(valuePtr)));
+
+                    foreach (Byte b in result)
+                        password += b.ToString("x2"); //You could also use other encodingslike BASE64 
+                }
+
                 try
                 {
                     mySqlConnection.Open();
                     MySqlCommand mySqlCmd = new MySqlCommand(loginSql, mySqlConnection);  
                     mySqlCmd.Parameters.AddWithValue("@User_Id", UserId);
-                    mySqlCmd.Parameters.AddWithValue("@UserPassword", UserPassword);
-                    MySqlDataReader reader = mySqlCmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        if (UserPassword == reader[2].ToString())
-                        {
-                            UserAuthIndex = (int)reader[0];
-                            MessageBox.Show("성공");
+                    mySqlCmd.Parameters.AddWithValue("@UserPassword", password);
 
-                            CloseAction();
-                        }
+
+                    if (mySqlCmd.ExecuteNonQuery() == 1)
+                    {
+                        MessageBox.Show("로그인 성공");
+                        CloseAction();
+                    }
+                    else
+                    {
+                        Console.WriteLine("실패");
                     }
                 }
 
