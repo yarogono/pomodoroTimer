@@ -165,8 +165,6 @@ namespace pomodoroTimer.ViewModel
         {
          
             bool SingUpNull = string.IsNullOrEmpty(UserId);
-            //SingUpNull = string.IsNullOrEmpty(UserPassword);
-            //SingUpNull = string.IsNullOrEmpty(ConfirmPassword);
 
             if (SingUpNull == true)
             {

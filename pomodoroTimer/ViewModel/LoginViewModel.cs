@@ -172,50 +172,55 @@ namespace pomodoroTimer.ViewModel
 
         private void Login()
         {
+            password = "";
+
+        //https://stackoverflow.com/questions/30618564/securestring-password-stored-in-database
+        //    위 링크 참조해서 해결 중
+
+           IntPtr valuePtr = IntPtr.Zero;
+
+            valuePtr = Marshal.SecureStringToGlobalAllocUnicode(UserPassword);
+
+            using (SHA256 hash = SHA256Managed.Create())
+            {
+                Encoding enc = Encoding.UTF8;
+
+                //the user id is the salt. 
+                //So 2 users with same password have different hashes. 
+                //For example if someone knows his own hash he can't see who has same password
+
+                //string input = userInput + userId;
+                Byte[] result = hash.ComputeHash(enc.GetBytes(Marshal.PtrToStringUni(valuePtr)));
+
+                foreach (Byte b in result)
+                    password += b.ToString("x2"); //You could also use other encodingslike BASE64 
+            }
+
             using (MySqlConnection mySqlConnection = new MySqlConnection(SqlServerAuth.connection))
             {
-                string loginSql = "SELECT * FROM user_auth WHERE User_Id=@User_Id AND User_Password=@UserPassword";
+                string loginSql = "SELECT * FROM user_auth WHERE User_Id=@User_Id";
 
-                password = "";
-
-                // https://stackoverflow.com/questions/30618564/securestring-password-stored-in-database
-                // 위 링크 참조해서 해결 중
-
-                IntPtr valuePtr = IntPtr.Zero;
-
-                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(UserPassword);
-
-                using (SHA256 hash = SHA256Managed.Create())
-                {
-                    Encoding enc = Encoding.UTF8;
-
-                    //the user id is the salt. 
-                    //So 2 users with same password have different hashes. 
-                    //For example if someone knows his own hash he can't see who has same password
-
-                    //string input = userInput + userId;
-                    Byte[] result = hash.ComputeHash(enc.GetBytes(Marshal.PtrToStringUni(valuePtr)));
-
-                    foreach (Byte b in result)
-                        password += b.ToString("x2"); //You could also use other encodingslike BASE64 
-                }
 
                 try
                 {
                     mySqlConnection.Open();
-                    MySqlCommand mySqlCmd = new MySqlCommand(loginSql, mySqlConnection);  
+                    MySqlCommand mySqlCmd = new MySqlCommand(loginSql, mySqlConnection);
                     mySqlCmd.Parameters.AddWithValue("@User_Id", UserId);
-                    mySqlCmd.Parameters.AddWithValue("@UserPassword", password);
+                    MySqlDataReader reader = mySqlCmd.ExecuteReader();
 
+                    while (reader.Read())
+                    {
+                        if (password == reader[2].ToString())
+                        {
+                            UserAuthIndex = (int)reader[0];
+                            MessageBox.Show("로그인 성공");
 
-                    if (mySqlCmd.ExecuteNonQuery() == 1)
-                    {
-                        MessageBox.Show("로그인 성공");
-                        CloseAction();
-                    }
-                    else
-                    {
-                        Console.WriteLine("실패");
+                            CloseAction();
+                        }
+                        else
+                        {
+                            MessageBox.Show("로그인 실패");
+                        }
                     }
                 }
 
@@ -223,7 +228,8 @@ namespace pomodoroTimer.ViewModel
                 {
                     MessageBox.Show(ex.Message);
                 }
-             }
+
+            }
         }
 
 
